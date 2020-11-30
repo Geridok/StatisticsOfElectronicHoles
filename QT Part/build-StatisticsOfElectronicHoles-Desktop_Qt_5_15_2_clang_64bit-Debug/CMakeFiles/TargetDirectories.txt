@@ -1,5 +1,0 @@
-/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/build-StatisticsOfElectronicHoles-Desktop_Qt_5_15_2_clang_64bit-Debug/CMakeFiles/rebuild_cache.dir
-/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/build-StatisticsOfElectronicHoles-Desktop_Qt_5_15_2_clang_64bit-Debug/CMakeFiles/edit_cache.dir
-/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/build-StatisticsOfElectronicHoles-Desktop_Qt_5_15_2_clang_64bit-Debug/CMakeFiles/StatisticsOfElectronicHoles.dir
-/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/build-StatisticsOfElectronicHoles-Desktop_Qt_5_15_2_clang_64bit-Debug/CMakeFiles/StatisticsOfElectronicHoles_autogen_timestamp_deps.dir
-/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/build-StatisticsOfElectronicHoles-Desktop_Qt_5_15_2_clang_64bit-Debug/CMakeFiles/StatisticsOfElectronicHoles_autogen.dir

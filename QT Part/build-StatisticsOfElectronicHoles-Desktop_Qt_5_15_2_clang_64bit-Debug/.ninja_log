@@ -1,6 +1,0 @@
-# ninja log v5
-0	339	1606236297516979076	StatisticsOfElectronicHoles_autogen/timestamp	4e139d7504ca0182
-339	2176	1606236299340580316	CMakeFiles/StatisticsOfElectronicHoles.dir/StatisticsOfElectronicHoles_autogen/mocs_compilation.cpp.o	41861334fbacb868
-5	1286	1606236321252596435	CMakeFiles/StatisticsOfElectronicHoles.dir/main.cpp.o	6b170fe533ba62a0
-340	2277	1606236299446355670	CMakeFiles/StatisticsOfElectronicHoles.dir/mainwindow.cpp.o	dadb903c09f3a818
-1286	1364	1606236321337508121	StatisticsOfElectronicHoles	fbf23399164b0462
