@@ -68,6 +68,13 @@ public:
         this->m = m;
         this->N_d0 = N_d0;
     }
+    void setValue(double E_d, double E_g, double E_c, double m, double N_d0){
+        this->E_d = E_d;
+        this->E_g = E_g;
+        this->E_c = E_c;
+        this->m = m;
+        this->N_d0 = N_d0;
+    }
 
     double n(double F, double T, int N = 1000);
 

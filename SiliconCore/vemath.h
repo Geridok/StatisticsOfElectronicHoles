@@ -59,6 +59,7 @@ namespace vemath {
         [[nodiscard]] Point2D normalize() const { return Point2D{this->x / abs(), this->y / abs()}; }
         [[nodiscard]] double abs() const { return sqrt(x * x + y * y); }
     };
+
     struct Point3D {
         double x = 0;
         double y = 0;

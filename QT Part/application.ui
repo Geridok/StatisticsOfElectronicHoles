@@ -39,6 +39,9 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -79,6 +82,9 @@
             <width>80</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -135,6 +141,9 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
        </layout>
@@ -189,6 +198,9 @@
             <width>80</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -245,6 +257,9 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
        </layout>
@@ -281,7 +296,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_5">
+         <widget class="QLineEdit" name="N_d0LineEdit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -290,7 +305,7 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>80</width>
+            <width>100</width>
             <height>0</height>
            </size>
           </property>
@@ -299,6 +314,9 @@
             <width>80</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -336,7 +354,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_6">
+         <widget class="QLineEdit" name="T_0LineEdit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -354,6 +372,9 @@
             <width>80</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -391,7 +412,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_7">
+         <widget class="QLineEdit" name="T_1LineEdit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -410,6 +431,15 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="frame">
+           <bool>true</bool>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
        </layout>
@@ -418,6 +448,9 @@
        <layout class="QHBoxLayout" name="horizontalLayout_8">
         <item>
          <widget class="QPushButton" name="cancelButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Cancel</string>
           </property>
@@ -425,6 +458,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="ApplyButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Apply</string>
           </property>
