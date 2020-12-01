@@ -3,7 +3,6 @@ project(SiliconCore)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# VEMATH including here
 add_library(vemath SHARED vemath.h vemath.cpp)
 
 add_executable(SiliconCore main.cpp)
