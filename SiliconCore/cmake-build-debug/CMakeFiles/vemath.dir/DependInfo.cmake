@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/vemath.cpp" "/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/cmake-build-debug/CMakeFiles/vemath.dir/vemath.cpp.o"
+  "/Users/ivanilin/CLionProjects/SiliconCore/vemath.cpp" "/Users/ivanilin/CLionProjects/SiliconCore/cmake-build-debug/CMakeFiles/vemath.dir/vemath.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

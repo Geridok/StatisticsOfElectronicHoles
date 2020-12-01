@@ -12,8 +12,6 @@
 #include <complex>
 #include <functional>
 
-#define PI = 3.14159265358979323846
-
 struct Color {
     unsigned char r; ///< Red component
     unsigned char g; ///< Green component
@@ -38,6 +36,7 @@ namespace vemath {
         Point2D &operator+=(const Point2D &point2D) {
             this->x += point2D.x;
             this->y += point2D.y;
+            return *this;
         }
         Point2D &operator=(const Point2D &point2D) {
             this->x = point2D.x;
@@ -47,16 +46,18 @@ namespace vemath {
         Point2D &operator*=(double number) {
             this->x *= number;
             this->y *= number;
+            return *this;
         }
         Point2D &operator*(double number) {
             this->x *= number;
             this->y *= number;
+            return *this;
         }
         double operator*(const Point2D &point2D) const { return this->x * point2D.x + this->y * point2D.y; }
         Point2D operator-(const Point2D &point2D) const { return {this->x - point2D.x, this->y - point2D.y}; }
         Point2D operator+(const Point2D &point2D) const { return {this->x + point2D.x, this->y + point2D.y}; }
-        Point2D normalize() { return Point2D{this->x / abs(), this->y / abs()}; }
-        double abs() { return sqrt(x * x + y * y); }
+        [[nodiscard]] Point2D normalize() const { return Point2D{this->x / abs(), this->y / abs()}; }
+        [[nodiscard]] double abs() const { return sqrt(x * x + y * y); }
     };
     struct Point3D {
         double x = 0;
@@ -73,9 +74,9 @@ namespace vemath {
 
         double mass = 0;
 
-        Point3D& operator+=(const Point3D& point2D) { this->x += point2D.x; this->y += point2D.y; this->z += point2D.z; }
+        Point3D& operator+=(const Point3D& point2D) { this->x += point2D.x; this->y += point2D.y; this->z += point2D.z; return *this;}
         Point3D& operator=(const Point3D& point2D) { this->x = point2D.x; this->y = point2D.y; this->z = point2D.z; return *this; }
-        Point3D& operator*(double number) { this->x *= number; this->y *= number; this->z *= number;}
+        Point3D& operator*(double number) { this->x *= number; this->y *= number; this->z *= number; return *this;}
         Point3D operator-(const Point3D& point2D) const { return {this->x - point2D.x, this->y - point2D.y, this->z - point2D.z}; }
         Point3D operator+(const Point3D& point2D) const { return {this->x + point2D.x, this->y + point2D.y, this->z + point2D.z}; }
 
@@ -83,10 +84,11 @@ namespace vemath {
             this->x *= number;
             this->y *= number;
             this->z *= number;
+            return *this;
         }
 
-        Point3D normalize() { return Point3D{this->x/abs(), this->y/abs(), this->z/abs()};}
-        double abs() {return sqrt(x*x + y*y + z*z); }
+        [[nodiscard]] Point3D normalize() const { return Point3D{this->x/abs(), this->y/abs(), this->z/abs()};}
+        [[nodiscard]] double abs() const {return sqrt(x*x + y*y + z*z); }
     };
 
     // struct Complex allows you to store complex numbers.
@@ -98,6 +100,7 @@ namespace vemath {
         Complex &operator+=(const Complex &complex) {
             this->real += complex.real;
             this->imagine += complex.imagine;
+            return *this;
         }
 
         [[nodiscard]] double abs() const {return sqrt(real*real + imagine*imagine); }
@@ -109,56 +112,56 @@ namespace vemath {
 
         double _xn = 1;
 
-        unsigned long long size() const { return v_c.size(); }
+        [[nodiscard]] unsigned long long size() const { return v_c.size(); }
 
         [[nodiscard]] std::vector<Point2D> abs() const{
             std::vector<Point2D> result;
-            for(int i = 0; i < v_c.size(); i++)
-                result.push_back({v_c[i].first, std::abs(v_c[i].second)});
+            for(const auto & i : v_c)
+                result.push_back({i.first, std::abs(i.second)});
             return result;
         }
 
         [[nodiscard]] std::vector<Point2D> real() const{
             std::vector<Point2D> real;
-            for(int i = 0; i < v_c.size(); i++)
-                real.push_back({v_c[i].first, v_c[i].second.real()});
+            for(const auto & i : v_c)
+                real.push_back({i.first, i.second.real()});
             return real;
         }
 
         [[nodiscard]] double maxReal() const {
             double m = v_c[0].second.real();
-            for(int i = 0; i < v_c.size(); i++)
-                if(m < v_c[i].second.real())
-                    m = v_c[i].second.real();
+            for(const auto & i : v_c)
+                if(m < i.second.real())
+                    m = i.second.real();
             return m;
         }
 
 
         [[nodiscard]] double midReal() const {
             double m = 0.0f;
-            for(int i = 0; i < v_c.size(); i++)
-                m += v_c[i].second.real();
+            for(const auto & i : v_c)
+                m += i.second.real();
             return m / v_c.size();
         }
 
         [[nodiscard]] double sumReal() const {
             double m = 0.0f;
-            for(int i = 0; i < v_c.size(); i++)
-                m += v_c[i].second.real();
+            for(const auto & i : v_c)
+                m += i.second.real();
             return m;
         }
 
         [[nodiscard]] std::vector<Point2D> imagine() const{
             std::vector<Point2D> imagine;
-            for(int i = 0; i < v_c.size(); i++)
-                imagine.push_back({v_c[i].first, v_c[i].second.imag()});
+            for(const auto & i : v_c)
+                imagine.push_back({i.first, i.second.imag()});
             return imagine;
         }
 
         [[nodiscard]] std::vector<Point2D> phase() const{
             std::vector<Point2D> _phase;
-            for(int i = 0; i < v_c.size(); i++)
-                _phase.push_back({v_c[i].first, std::arg(v_c[i].second)});
+            for(const auto & i : v_c)
+                _phase.push_back({i.first, std::arg(i.second)});
             return _phase;
         }
 
@@ -218,18 +221,7 @@ namespace vemath {
 
     [[nodiscard]] Point3D randomDirection(int seed = 1234);
 
-    Color colorInterpolation(double progress) {
-        std::vector<int> result_color = {0, 0, 255};
-
-        if((progress <= 0) || (progress >= 1))
-            return (progress <= 0) ? Color{0,0,255} : Color{255,0,0};
-        int i = 0;
-        for(i = 0; progress > (double)(i+1)/4; i++)
-            result_color[(i+1)%3] = (i%2 == 0) ? 255 : 0;
-        result_color[(i+1)%3] = (i%2 == 0) ? (4*progress - i)*255 : (1 + i-4*progress)*255;
-
-        return Color{static_cast<unsigned char>(result_color[0]), static_cast<unsigned char>(result_color[1]), static_cast<unsigned char>(result_color[2])};
-    }
+    Color colorInterpolation(double progress);
 
     /*
     // fftw library

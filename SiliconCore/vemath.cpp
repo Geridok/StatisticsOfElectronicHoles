@@ -176,6 +176,19 @@ void vemath::cross(const ComplexPlot& data1, const ComplexPlot& data2, ComplexPl
         cross.push(data1.v_c[i].first, data1.v_c[i].second * data2.v_c[i].second);
 }
 
+Color vemath::colorInterpolation(double progress) {
+    std::vector<int> result_color = {0, 0, 255};
+
+    if((progress <= 0) || (progress >= 1))
+        return (progress <= 0) ? Color{0,0,255} : Color{255,0,0};
+    int i = 0;
+    for(i = 0; progress > (double)(i+1)/4; i++)
+        result_color[(i+1)%3] = (i%2 == 0) ? 255 : 0;
+    result_color[(i+1)%3] = (i%2 == 0) ? (4*progress - i)*255 : (1 + i-4*progress)*255;
+
+    return Color{static_cast<unsigned char>(result_color[0]), static_cast<unsigned char>(result_color[1]), static_cast<unsigned char>(result_color[2])};
+}
+
 /*
 // simple fourier transform of 2D plot. Without imagine component.
 void vemath::fftw_fourierTransform(const ComplexPlot& data, ComplexPlot& transform) {

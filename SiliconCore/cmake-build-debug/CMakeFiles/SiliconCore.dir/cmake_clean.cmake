@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/SiliconCore.dir/Silicon.cpp.o"
   "CMakeFiles/SiliconCore.dir/main.cpp.o"
   "SiliconCore"
   "SiliconCore.pdb"

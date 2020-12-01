@@ -6,7 +6,19 @@
 
 #IncludeRegexTransform: 
 
-/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/gnuplot.h
+/Users/ivanilin/CLionProjects/SiliconCore/Silicon.cpp
+Silicon.h
+/Users/ivanilin/CLionProjects/SiliconCore/Silicon.h
+gnuplot.h
+/Users/ivanilin/CLionProjects/SiliconCore/gnuplot.h
+
+/Users/ivanilin/CLionProjects/SiliconCore/Silicon.h
+vemath.h
+/Users/ivanilin/CLionProjects/SiliconCore/vemath.h
+gnuplot.h
+/Users/ivanilin/CLionProjects/SiliconCore/gnuplot.h
+
+/Users/ivanilin/CLionProjects/SiliconCore/gnuplot.h
 stdio.h
 -
 string
@@ -18,17 +30,15 @@ iostream
 fstream
 -
 
-/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/main.cpp
+/Users/ivanilin/CLionProjects/SiliconCore/main.cpp
 cmath
 -
 iostream
 -
-gnuplot.h
-/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/gnuplot.h
-vemath.h
-/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/vemath.h
+Silicon.h
+/Users/ivanilin/CLionProjects/SiliconCore/Silicon.h
 
-/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/vemath.h
+/Users/ivanilin/CLionProjects/SiliconCore/vemath.h
 cmath
 -
 vector

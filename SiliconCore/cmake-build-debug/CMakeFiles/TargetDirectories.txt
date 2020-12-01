@@ -1,4 +1,4 @@
-/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/cmake-build-debug/CMakeFiles/SiliconCore.dir
-/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/cmake-build-debug/CMakeFiles/vemath.dir
+/Users/ivanilin/CLionProjects/SiliconCore/cmake-build-debug/CMakeFiles/SiliconCore.dir
+/Users/ivanilin/CLionProjects/SiliconCore/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/ivanilin/CLionProjects/SiliconCore/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/ivanilin/CLionProjects/SiliconCore/cmake-build-debug/CMakeFiles/vemath.dir
