@@ -1,0 +1,1 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.0.sdk -dynamiclib -Wl,-headerpad_max_install_names  -o libvemath.dylib -install_name @rpath/libvemath.dylib CMakeFiles/vemath.dir/vemath.cpp.o 

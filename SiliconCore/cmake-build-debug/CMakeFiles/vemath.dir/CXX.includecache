@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/ivanilin/CLionProjects/SiliconCore/vemath.cpp
+stack
+-
+vemath.h
+/Users/ivanilin/CLionProjects/SiliconCore/vemath.h
+
+/Users/ivanilin/CLionProjects/SiliconCore/vemath.h
+cmath
+-
+vector
+-
+cstdlib
+-
+fstream
+-
+complex
+-
+functional
+-
+

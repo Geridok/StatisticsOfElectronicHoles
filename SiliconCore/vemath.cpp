@@ -46,7 +46,7 @@ void vemath::fourierTransform(const ComplexPlot& data, ComplexPlot& transform) {
     for (int k = 0; k < data.v_c.size(); k++) {
         std::complex<double> transformed = {0, 0};
         for (int n = 0; n < data.v_c.size(); n++) {
-            double p = 2 * PI * k * n / data.v_c.size();
+            double p = 2 * M_PI * k * n / data.v_c.size();
             std::complex<double> tr = {cos(p) / data.v_c.size(), -sin(p) / data.v_c.size()};
             transformed += data.v_c[n].second * tr;
         }
@@ -60,7 +60,7 @@ void vemath::inverseFourierTransform(const ComplexPlot& data, ComplexPlot& trans
     for (int k = 0; k < data.v_c.size(); k++) {
         std::complex<double> transformed = {0, 0};
         for (int n = 0; n < data.v_c.size(); n++) {
-            double p = 2 * PI * k * n / data.v_c.size();
+            double p = 2 * M_PI * k * n / data.v_c.size();
             std::complex<double> tr = {cos(p), sin(p)};
             transformed += data.v_c[n].second * tr;
         }

@@ -11,7 +11,6 @@
 #include <fstream>
 #include <complex>
 #include <functional>
-#include "settings.h"
 
 struct Color {
     unsigned char r; ///< Red component

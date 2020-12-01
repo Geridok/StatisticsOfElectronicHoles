@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/ivanilin/CLionProjects/SiliconCore/gnuplot.h
+stdio.h
+-
+string
+-
+vector
+-
+iostream
+-
+fstream
+-
+
+/Users/ivanilin/CLionProjects/SiliconCore/main.cpp
+cmath
+-
+iostream
+-
+gnuplot.h
+/Users/ivanilin/CLionProjects/SiliconCore/gnuplot.h
+vemath.h
+/Users/ivanilin/CLionProjects/SiliconCore/vemath.h
+
+/Users/ivanilin/CLionProjects/SiliconCore/vemath.h
+cmath
+-
+vector
+-
+cstdlib
+-
+fstream
+-
+complex
+-
+functional
+-
+
