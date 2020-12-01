@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/graphics">
+        <file>f_from_t.png</file>
+        <file>n_from_t.png</file>
+    </qresource>
+</RCC>
