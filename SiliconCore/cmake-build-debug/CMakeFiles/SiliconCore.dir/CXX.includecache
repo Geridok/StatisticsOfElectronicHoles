@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/ivanilin/CLionProjects/SiliconCore/gnuplot.h
+/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/gnuplot.h
 stdio.h
 -
 string
@@ -18,17 +18,17 @@ iostream
 fstream
 -
 
-/Users/ivanilin/CLionProjects/SiliconCore/main.cpp
+/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/main.cpp
 cmath
 -
 iostream
 -
 gnuplot.h
-/Users/ivanilin/CLionProjects/SiliconCore/gnuplot.h
+/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/gnuplot.h
 vemath.h
-/Users/ivanilin/CLionProjects/SiliconCore/vemath.h
+/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/vemath.h
 
-/Users/ivanilin/CLionProjects/SiliconCore/vemath.h
+/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/vemath.h
 cmath
 -
 vector

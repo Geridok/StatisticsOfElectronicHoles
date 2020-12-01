@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QPixmap>
+#include "adapterforvectozavr.h"
 namespace Ui {
 class Application;
 }
@@ -17,6 +18,7 @@ public:
 
 private:
     Ui::Application *ui;
+    adapterForVectozavr *adapter;
 };
 
 #endif // APPLICATION_H

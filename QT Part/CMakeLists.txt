@@ -14,8 +14,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
-set(SRC ../SiliconCore/gnuplot.h ../SiliconCore/statisticsInSilicon.cpp ../SiliconCore/vemath.cpp ../SiliconCore/vemath.h)
-#add_library(Vectozavr ${SRC})
+set(SRC ../SiliconCore/gnuplot.h ../SiliconCore/Silicon.cpp ../SiliconCore/vemath.cpp ../SiliconCore/vemath.h)
+add_library(Vectozavr ${SRC})
 
 add_executable(StatisticsOfElectronicHoles
     main.cpp
@@ -27,4 +27,4 @@ add_executable(StatisticsOfElectronicHoles
     adapterforvectozavr.h
   )
 
-target_link_libraries(StatisticsOfElectronicHoles PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(StatisticsOfElectronicHoles PRIVATE Vectozavr Qt${QT_VERSION_MAJOR}::Widgets)

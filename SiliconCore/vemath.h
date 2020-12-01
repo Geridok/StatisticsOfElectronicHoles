@@ -11,11 +11,8 @@
 #include <fstream>
 #include <complex>
 #include <functional>
-<<<<<<< Updated upstream
-=======
 
 #define PI = 3.14159265358979323846
->>>>>>> Stashed changes
 
 struct Color {
     unsigned char r; ///< Red component

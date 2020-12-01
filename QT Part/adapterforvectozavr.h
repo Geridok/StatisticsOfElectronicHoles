@@ -6,6 +6,7 @@ class adapterForVectozavr
 {
 public:
     adapterForVectozavr();
+
 };
 
 #endif // ADAPTERFORVECTOZAVR_H

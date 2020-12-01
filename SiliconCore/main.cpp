@@ -155,49 +155,49 @@ public:
 
 };
 
-int main() {
+//int main() {
 
-    /*
-     * Параметры для ввода в модель ( http://www.ioffe.ru/SVA/NSM/Semicond/Si/electric.html#Basic ):
-     * 1) E_d - положение уровня донора
-     * 2) E_g - ширина запрещённой зоны
-     * 3) E_c - дно зоны проводимости
-     * 4) m - эффективная масса носителей заряда
-     * 5) N_d0 - концентрация доноров (задаётся от 10^15 до 10^22 на cm^3)
-     * 6) T_0 - начальная температура
-     * 7) T_1 - конечная температура
-     * Все энергии отсчитывает от потолка валентной зоны, только энергия донора вниз от дна зоны проводимости.
-     * TODO: Программа переводит все в единицы СГС (или в СИ по желанию).
-    */
+//    /*
+//     * Параметры для ввода в модель ( http://www.ioffe.ru/SVA/NSM/Semicond/Si/electric.html#Basic ):
+//     * 1) E_d - положение уровня донора
+//     * 2) E_g - ширина запрещённой зоны
+//     * 3) E_c - дно зоны проводимости
+//     * 4) m - эффективная масса носителей заряда
+//     * 5) N_d0 - концентрация доноров (задаётся от 10^15 до 10^22 на cm^3)
+//     * 6) T_0 - начальная температура
+//     * 7) T_1 - конечная температура
+//     * Все энергии отсчитывает от потолка валентной зоны, только энергия донора вниз от дна зоны проводимости.
+//     * TODO: Программа переводит все в единицы СГС (или в СИ по желанию).
+//    */
 
-    /*
-    double E_d = 1.0f;
-    double E_g = 1.0f;
-    double E_c = 1.0f;
-    double m = 1.0f;
-    double N_d0 = 1.0f;
-    double T_0 = 0.0f;
-    double T_1 = 100.0f;
-    */
-    double E_d = 2.0f * 1.60e-19;
-    double E_g = 1.5f * 1.60e-19;
-    double E_c = 1.5f * 1.60e-19;
-    double m = 9.1093837015e-31;
-    double N_d0 = 1e22;
-    double T_0 = 0.0f;
-    double T_1 = 100.0f;
+//    /*
+//    double E_d = 1.0f;
+//    double E_g = 1.0f;
+//    double E_c = 1.0f;
+//    double m = 1.0f;
+//    double N_d0 = 1.0f;
+//    double T_0 = 0.0f;
+//    double T_1 = 100.0f;
+//    */
+//    double E_d = 2.0f * 1.60e-19;
+//    double E_g = 1.5f * 1.60e-19;
+//    double E_c = 1.5f * 1.60e-19;
+//    double m = 9.1093837015e-31;
+//    double N_d0 = 1e22;
+//    double T_0 = 0.0f;
+//    double T_1 = 100.0f;
 
-    // TODO: solve main equation: F = E_g - E_d - k*T * ln(N_d0/n(F) - 1)
-    int Nn = 1000;
-    int NT = 1000;
-    double tol = 0.001f;
+//    // TODO: solve main equation: F = E_g - E_d - k*T * ln(N_d0/n(F) - 1)
+//    int Nn = 1000;
+//    int NT = 1000;
+//    double tol = 0.001f;
 
-    Silicon silicon(E_d, E_g, E_c, m, N_d0);
-    silicon.calcilate_F_from_T(T_0, T_1, tol, NT, Nn);
-    silicon.saveData();
+//    Silicon silicon(E_d, E_g, E_c, m, N_d0);
+//    silicon.calcilate_F_from_T(T_0, T_1, tol, NT, Nn);
+//    silicon.saveData();
 
-    silicon.plotPNGData();
-    silicon.plotData();
+//    silicon.plotPNGData();
+//    silicon.plotData();
 
-    //silicon.plot_eq_from_F(-60, 60, 30);
-}
+//    //silicon.plot_eq_from_F(-60, 60, 30);
+//}
