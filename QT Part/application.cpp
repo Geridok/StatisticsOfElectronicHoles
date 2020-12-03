@@ -7,25 +7,33 @@ Application::Application(QWidget *parent) :
     ui(new Ui::Application)
 {
     ui->setupUi(this);
-//    QPixmap first (":/graphics/f_from_t.png");
-//    int wFirst =  first.width();
-//    int hFirst = first.height();
-//    QPixmap sec (":/graphics/n_from_t.png");
-//    int wSec = sec.width();
-//    int hSec = sec.height();
-//    ui->f_from_tIMG->setMinimumHeight(hFirst);
-//    ui->n_from_tIMG->setMinimumHeight(hSec);
-//    ui->f_from_tIMG->setPixmap(first.scaled(wFirst,hFirst,Qt::KeepAspectRatio));
-//    ui->n_from_tIMG->setPixmap(sec.scaled(wSec,hSec,Qt::KeepAspectRatio));
     solver = std::make_shared<Silicon>( Silicon(E_d,E_g,E_c,m,N_d0));
     solver->calcilate_F_from_T(T_0,T_1, tol,NT,Nn);
     solver->saveData();
-    Silicon::plotPNGData();
-    Silicon::plotData();
+//    Silicon::plotPNGData();
+//    Silicon::plotData();
     setSlidersLimit();
     setInitialValue();
     ui->cancelButton->setEnabled(false);
     ui->ApplyButton->setEnabled(false);
+
+    QVector<double> x(10), y(10);
+    for (int i =0 ;i < 10 ; i++ ) {
+        x[i] = i;
+        y[i] = i;
+    }
+
+    ui->F_TWidget->addGraph();
+    ui->F_TWidget->graph(0)->setData(x,y);
+    ui->F_TWidget->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle));
+    ui->F_TWidget->setInteraction(QCP::iRangeDrag,true);
+    ui->F_TWidget->setInteraction(QCP::iRangeZoom,true);
+
+    ui->N_TWidget->addGraph();
+    ui->N_TWidget->graph(0)->setData(x,y);
+    ui->N_TWidget->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle));
+    ui->N_TWidget->setInteraction(QCP::iRangeDrag,true);
+    ui->N_TWidget->setInteraction(QCP::iRangeZoom,true);
 }
 
 void Application::setInitialValue(){

@@ -489,22 +489,22 @@
      </layout>
     </item>
     <item row="0" column="0">
-     <widget class="QLabel" name="f_from_tIMG">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+     <widget class="QCustomPlot" name="F_TWidget" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>200</width>
+        <height>200</height>
+       </size>
       </property>
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QLabel" name="n_from_tIMG">
-      <property name="text">
-       <string/>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+     <widget class="QCustomPlot" name="N_TWidget" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>200</width>
+        <height>200</height>
+       </size>
       </property>
      </widget>
     </item>
@@ -533,6 +533,14 @@
    </attribute>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
