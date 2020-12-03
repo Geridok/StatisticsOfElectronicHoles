@@ -5,10 +5,7 @@
 #ifndef SILICONCORE_SILICON_H
 #define SILICONCORE_SILICON_H
 
-#include "vemath.h"
 #include "gnuplot.h"
-
-using namespace vemath;
 
 class Silicon {
 private:
@@ -39,10 +36,11 @@ private:
     double m;
     double N_d0;
 
-    ComplexPlot F_T; // dependence F on T
-    ComplexPlot n_T; // dependence n on T
+    std::vector<double> v_F;
+    std::vector<double> v_n;
+    std::vector<double> v_T;
 
-    ComplexPlot eq_F; // dependence eq on F
+    std::vector<double> v_eq; // dependence eq on F
 
     [[nodiscard]] double f_mult_g(double E, double F, double T) const {
         return 1.0f/(2.0f*M_PI*M_PI)*pow(2.0f*m/(h*h), 1.5f) * sqrt(E - E_c)/(exp((E - F) / (k*T)) + 1);
@@ -76,13 +74,11 @@ public:
 
     void calcilate_F_from_T(double T_0, double T_1, double tol = 0.001f, int NT = 1000, int Nn = 1000);
 
-    void plot_eq_from_F(double F0, double F1, double T, int NF = 1000, int Nn = 1000);
-
     // qt style
     void setParameters(double T_0, double T_1, double E_d, double E_g, double E_c, double m, double N_d0);
-    [[nodiscard]] std::vector<std::pair<double, std::complex<double>>> get_F_T();
-    [[nodiscard]] std::vector<std::pair<double, std::complex<double>>> get_n_T();
-
+    [[nodiscard]] std::vector<double> get_F() const;
+    [[nodiscard]] std::vector<double> get_n() const;
+    [[nodiscard]] std::vector<double> get_T() const;
 
     // gnuplot style
     bool saveData();
