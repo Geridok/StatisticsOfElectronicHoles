@@ -36,6 +36,8 @@ void Silicon::calcilate_F_from_T(double T_0, double T_1, double tol, int NT, int
         double dF = 0.0001f; // шаг дифференцирования
         int s = 0; // число итераций
 
+        // Real computation (is not workable now)
+        /*
         while(abs(F_N - F1_N) > tol) {
             F_N = F1_N;
             F1_N = F_N - eq(F_N + dF, T, Nn) / deq(F_N + dF, T, dF, Nn);
@@ -43,6 +45,11 @@ void Silicon::calcilate_F_from_T(double T_0, double T_1, double tol, int NT, int
         }
         v_F.push_back(F_N);
         v_n.push_back(n(F_N, T, Nn));
+        v_T.push_back(T);
+         */
+        // for debug
+        v_F.push_back(T*T);
+        v_n.push_back(T*sin(T));
         v_T.push_back(T);
 
         T += dT;

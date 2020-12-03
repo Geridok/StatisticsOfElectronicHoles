@@ -66,9 +66,6 @@ public:
         this->m = m;
         this->N_d0 = N_d0;
     }
-    Silicon(){
-
-    }
 
     double n(double F, double T, int N = 1000);
 
@@ -84,7 +81,6 @@ public:
     bool saveData();
     static void plotData();
     static void plotPNGData();
-
 };
 
 
