@@ -22,8 +22,9 @@ double Silicon::n(double F, double T, int N) {
 }
 
 void Silicon::calcilate_F_from_T(double T_0, double T_1, double tol, int NT, int Nn){
-    F_T.clear();
-    n_T.clear();
+    v_n.clear();
+    v_F.clear();
+    v_T.clear();
 
     double dT = (T_1 - T_0) / NT;
 
@@ -40,26 +41,12 @@ void Silicon::calcilate_F_from_T(double T_0, double T_1, double tol, int NT, int
             F1_N = F_N - eq(F_N + dF, T, Nn) / deq(F_N + dF, T, dF, Nn);
             s++;
         }
-        F_T.push(T, F_N);
-        n_T.push(T, n(F_N, T, Nn));
+        v_F.push_back(F_N);
+        v_n.push_back(n(F_N, T, Nn));
+        v_T.push_back(T);
 
         T += dT;
     }
-}
-
-void Silicon::plot_eq_from_F(double F0, double F1, double T, int NF, int Nn) {
-    eq_F.clear();
-    double F = F0;
-    double dF = (F1 - F0) / NF;
-
-    while(F < F1) {
-        eq_F.push(F, eq(F, T, Nn));
-        F += dF;
-    }
-
-    saveVectorPoint2DToFile(eq_F.real(), "eq_F.dat");
-    GnuplotPipe gp;
-    gp.sendLine(R"(plot "eq_F.dat" with lines)");
 }
 
 void Silicon::setParameters(double T_0, double T_1, double E_d, double E_g, double E_c, double m, double N_d0) {
@@ -71,15 +58,32 @@ void Silicon::setParameters(double T_0, double T_1, double E_d, double E_g, doub
 
     calcilate_F_from_T(T_0, T_1);
 }
-[[nodiscard]] std::vector<std::pair<double, std::complex<double>>> Silicon::get_F_T() {
-    return F_T.v_c;
+
+[[nodiscard]] std::vector<double> Silicon::get_F() const {
+    return v_F;
 }
-[[nodiscard]] std::vector<std::pair<double, std::complex<double>>> Silicon::get_n_T() {
-    return n_T.v_c;
+[[nodiscard]] std::vector<double> Silicon::get_n() const {
+    return v_n;
+}
+[[nodiscard]] std::vector<double> Silicon::get_T() const {
+    return v_T;
 }
 
 bool Silicon::saveData() {
-    return saveVectorPoint2DToFile(F_T.real(), "F_T.dat") && saveVectorPoint2DToFile(n_T.real(), "n_T.dat");
+    std::ofstream _ofstreamF("F_T.dat");
+    std::ofstream _ofstreamN("n_T.dat");
+
+    if (!_ofstreamF.is_open() || !_ofstreamN.is_open() || v_F.size() != v_T.size() || v_n.size() != v_T.size())
+        return false;
+
+    for(int i = 0; i < v_T.size(); i++) {
+        _ofstreamF << v_T[i] << "\t" << v_F[i] << std::endl;
+        _ofstreamN << v_T[i] << "\t" << v_n[i] << std::endl;
+    }
+
+    _ofstreamF.close();
+    _ofstreamN.close();
+    return true;
 }
 
 void Silicon::plotData() {
