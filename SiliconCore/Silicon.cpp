@@ -48,8 +48,8 @@ void Silicon::calcilate_F_from_T(double T_0, double T_1, double tol, int NT, int
         v_T.push_back(T);
          */
         // for debug
-        v_F.push_back(T*T);
-        v_n.push_back(T*sin(T));
+        v_F.push_back(E_d*E_g*E_c*m*N_d0*T*T);
+        v_n.push_back(E_d*E_g*E_c*m*N_d0*T*sin(T*T/100.0f));
         v_T.push_back(T);
 
         T += dT;
