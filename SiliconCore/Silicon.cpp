@@ -59,13 +59,13 @@ void Silicon::setParameters(double T_0, double T_1, double E_d, double E_g, doub
     calcilate_F_from_T(T_0, T_1);
 }
 
-[[nodiscard]] std::vector<double> Silicon::get_F() const {
+[[nodiscard]] const std::vector<double>& Silicon::get_F() const {
     return v_F;
 }
-[[nodiscard]] std::vector<double> Silicon::get_n() const {
+[[nodiscard]] const std::vector<double>& Silicon::get_n() const {
     return v_n;
 }
-[[nodiscard]] std::vector<double> Silicon::get_T() const {
+[[nodiscard]] const std::vector<double>& Silicon::get_T() const {
     return v_T;
 }
 

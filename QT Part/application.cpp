@@ -9,9 +9,6 @@ Application::Application(QWidget *parent) :
     ui->setupUi(this);
     solver = std::make_shared<Silicon>( Silicon());
 
-    setSlidersLimit();
-    setInitialValue();
-
     ui->F_TWidget->addGraph();
     ui->F_TWidget->setInteraction(QCP::iRangeDrag,true);
     ui->F_TWidget->setInteraction(QCP::iRangeZoom,true);
@@ -19,9 +16,11 @@ Application::Application(QWidget *parent) :
     ui->N_TWidget->addGraph();
     ui->N_TWidget->setInteraction(QCP::iRangeDrag,true);
     ui->N_TWidget->setInteraction(QCP::iRangeZoom,true);
-
     reculculate();
     updateGraph();
+
+    setSlidersLimit();
+    setInitialValue();
 }
 
 void Application::setInitialValue(){
@@ -61,13 +60,19 @@ void Application::setSlidersLimit(){
 
 void Application::updateGraph()
 {
-    ui->F_TWidget->xAxis->setRange(*std::min_element(F.begin(),F.end()),*std::max_element(F.begin(),F.end()));
-    ui->F_TWidget->yAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
+    ui->F_TWidget->graph(0)->setData(T,F);
+    ui->F_TWidget->xAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
+    ui->F_TWidget->yAxis->setRange(*std::min_element(F.begin(),F.end()),*std::max_element(F.begin(),F.end()));
+    auto a = *std::min_element(F.begin(),F.end());
+    auto b = *std::max_element(F.begin(),F.end());
     ui->F_TWidget->replot();
     ui->F_TWidget->update();
 
-    ui->N_TWidget->xAxis->setRange(*std::min_element(n.begin(),n.end()),*std::max_element(n.begin(),n.end()));
-    ui->N_TWidget->yAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
+    ui->N_TWidget->graph(0)->setData(T,n);
+    ui->N_TWidget->xAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
+    ui->N_TWidget->yAxis->setRange(*std::min_element(n.begin(),n.end()),*std::max_element(n.begin(),n.end()));
+    auto c = *std::min_element(n.begin(),n.end());
+    auto d = *std::max_element(n.begin(),n.end());
     ui->N_TWidget->replot();
     ui->N_TWidget->update();
 
@@ -76,11 +81,12 @@ void Application::updateGraph()
 void Application::reculculate()
 {
     solver->setParameters(T_0,T_1, E_d,E_g,E_c,m,N_d0);
-    auto F_T = solver->get_F_T();
+    auto F = solver->get_F();
+    auto T = solver->get_T();
     auto n = solver->get_n();
-    F = QVector<double>::fromStdVector(F_T.first);
-    T = QVector<double>::fromStdVector(F_T.second);
-    n = QVector<double>::fromStdVector(n.first);
+    this->F = QVector<double>(F.begin(),F.end());
+    this->T = QVector<double>(T.begin(),T.end());
+    this->n = QVector<double>(n.begin(),n.end());
 }
 
 Application::~Application()

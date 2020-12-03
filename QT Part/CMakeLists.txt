@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets  PrintSupport REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets PrintSupport REQUIRED)
 
-set(SRC ../SiliconCore/gnuplot.h ../SiliconCore/Silicon.cpp ../SiliconCore/Silicon.h ../SiliconCore/vemath.cpp ../SiliconCore/vemath.h ../SiliconCore/vemath.cpp)
+set(SRC ../SiliconCore/Silicon.cpp ../SiliconCore/Silicon.h)
 add_library(Vectozavr ${SRC})
 
 add_executable(StatisticsOfElectronicHoles
