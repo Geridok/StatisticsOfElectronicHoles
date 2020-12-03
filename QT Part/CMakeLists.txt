@@ -22,10 +22,10 @@ add_executable(StatisticsOfElectronicHoles
     application.cpp
     application.h
     application.ui
-    adapterforvectozavr.cpp
-    adapterforvectozavr.h
     qcustomplot.cpp
     qcustomplot.h
+    qcpdocumentobject.cpp
+    qcpdocumentobject.h
   )
 
 target_link_libraries(StatisticsOfElectronicHoles PRIVATE Vectozavr Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::PrintSupport)

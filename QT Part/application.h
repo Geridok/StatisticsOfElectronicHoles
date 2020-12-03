@@ -34,13 +34,12 @@ private slots:
 
     void on_T_1Slider_valueChanged(int value);
 
-    void on_cancelButton_clicked();
-
-    void on_ApplyButton_clicked();
-
 private:
     Ui::Application *ui;
     std::shared_ptr<Silicon> solver;
+    QVector<double> F;
+    QVector<double> T;
+    QVector<double> n;
 private:
     //Multipliers
     double multiplier_E_d = 1.6e-19;
@@ -63,6 +62,8 @@ private:
     //func
     void setInitialValue();
     void setSlidersLimit();
+    void updateGraph();
+    void reculculate();
 };
 
 #endif // APPLICATION_H

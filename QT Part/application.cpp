@@ -7,33 +7,21 @@ Application::Application(QWidget *parent) :
     ui(new Ui::Application)
 {
     ui->setupUi(this);
-    solver = std::make_shared<Silicon>( Silicon(E_d,E_g,E_c,m,N_d0));
-    solver->calcilate_F_from_T(T_0,T_1, tol,NT,Nn);
-    solver->saveData();
-//    Silicon::plotPNGData();
-//    Silicon::plotData();
+    solver = std::make_shared<Silicon>( Silicon());
+
     setSlidersLimit();
     setInitialValue();
-    ui->cancelButton->setEnabled(false);
-    ui->ApplyButton->setEnabled(false);
-
-    QVector<double> x(10), y(10);
-    for (int i =0 ;i < 10 ; i++ ) {
-        x[i] = i;
-        y[i] = i;
-    }
 
     ui->F_TWidget->addGraph();
-    ui->F_TWidget->graph(0)->setData(x,y);
-    ui->F_TWidget->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle));
     ui->F_TWidget->setInteraction(QCP::iRangeDrag,true);
     ui->F_TWidget->setInteraction(QCP::iRangeZoom,true);
 
     ui->N_TWidget->addGraph();
-    ui->N_TWidget->graph(0)->setData(x,y);
-    ui->N_TWidget->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle));
     ui->N_TWidget->setInteraction(QCP::iRangeDrag,true);
     ui->N_TWidget->setInteraction(QCP::iRangeZoom,true);
+
+    reculculate();
+    updateGraph();
 }
 
 void Application::setInitialValue(){
@@ -71,6 +59,30 @@ void Application::setSlidersLimit(){
     ui->T_1Slider->setValue(T_1);
 }
 
+void Application::updateGraph()
+{
+    ui->F_TWidget->xAxis->setRange(*std::min_element(F.begin(),F.end()),*std::max_element(F.begin(),F.end()));
+    ui->F_TWidget->yAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
+    ui->F_TWidget->replot();
+    ui->F_TWidget->update();
+
+    ui->N_TWidget->xAxis->setRange(*std::min_element(n.begin(),n.end()),*std::max_element(n.begin(),n.end()));
+    ui->N_TWidget->yAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
+    ui->N_TWidget->replot();
+    ui->N_TWidget->update();
+
+}
+
+void Application::reculculate()
+{
+    solver->setParameters(T_0,T_1, E_d,E_g,E_c,m,N_d0);
+    auto F_T = solver->get_F_T();
+    auto n = solver->get_n();
+    F = QVector<double>::fromStdVector(F_T.first);
+    T = QVector<double>::fromStdVector(F_T.second);
+    n = QVector<double>::fromStdVector(n.first);
+}
+
 Application::~Application()
 {
     delete ui;
@@ -79,98 +91,71 @@ Application::~Application()
 
 void Application::on_E_gSlider_valueChanged(int value)
 {
-    ui->E_gLineEdit->setText(QString::number((double(value)) * multiplier_E_g));
-    ui->cancelButton->setEnabled(true);
-    ui->ApplyButton->setEnabled(true);
+    E_g = double(value) * multiplier_E_g;
+    ui->E_gLineEdit->setText(QString::number(E_g));
+
+    reculculate();
+    updateGraph();
 }
 
 void Application::on_E_dSlider_valueChanged(int value)
-{ 
-    ui->E_dLineEdit->setText(QString::number((double(value)) * multiplier_E_d));
-    ui->cancelButton->setEnabled(true);
-    ui->ApplyButton->setEnabled(true);
+{
+    E_d = double(value) * multiplier_E_d;
+    ui->E_dLineEdit->setText(QString::number(E_d));
+
+    reculculate();
+    updateGraph();
 }
 
 void Application::on_E_cSlider_valueChanged(int value)
 {
-    ui->E_cLineEdit->setText(QString::number((double(value)) * multiplier_E_c));
-    ui->cancelButton->setEnabled(true);
-    ui->ApplyButton->setEnabled(true);
+    E_c = double(value) * multiplier_E_c;
+    ui->E_cLineEdit->setText(QString::number(E_c));
+
+    reculculate();
+    updateGraph();
 }
 
 void Application::on_mSlider_valueChanged(int value)
 {
-    ui->mLineEdit->setText(QString::number((double(value)) * multiplier_m));
-    ui->cancelButton->setEnabled(true);
-    ui->ApplyButton->setEnabled(true);
+    m = double(value) * multiplier_m;
+    ui->mLineEdit->setText(QString::number(m));
+
+    reculculate();
+    updateGraph();
 }
 
 void Application::on_N_d0Slider_valueChanged(int value)
 {
     N_d0Pow = double(value);
-    ui->N_d0LineEdit->setText(QString::number(pow(10,N_d0Pow)));
-    ui->cancelButton->setEnabled(true);
-    ui->ApplyButton->setEnabled(true);
+    N_d0 = pow(10,N_d0Pow);
+    ui->N_d0LineEdit->setText(QString::number(N_d0));
+
+    reculculate();
+    updateGraph();
 }
 
 void Application::on_T_0Slider_valueChanged(int value)
 {
-    ui->T_0LineEdit->setText(QString::number(value));
-    if(T_1 < value){
-        ui->T_1Slider->setValue(value);
-        this->on_T_1Slider_valueChanged(value);
+    T_0 = value;
+    ui->T_0LineEdit->setText(QString::number(T_0));
+    if(T_1 < T_0){
+        this->on_T_1Slider_valueChanged(T_0);
     }
-    ui->cancelButton->setEnabled(true);
-    ui->ApplyButton->setEnabled(true);
+    reculculate();
+    updateGraph();
 }
 
 void Application::on_T_1Slider_valueChanged(int value)
 {
-    if(value < T_0){
-        ui->T_1Slider->setValue(value);
+    T_1 = value;
+    if(T_1 <= T_0){
+        ui->T_1Slider->setValue(T_0);
+        T_1 = T_0;
+    }else{
+        reculculate();
+        updateGraph();
     }
-    ui->T_1LineEdit->setText(QString::number(value));
-    ui->cancelButton->setEnabled(true);
-    ui->ApplyButton->setEnabled(true);
-}
-
-
-
-void Application::on_cancelButton_clicked()
-{
-    ui->E_dLineEdit->setText(QString::number(E_d));
-    ui->E_gLineEdit->setText(QString::number(E_g));
-    ui->E_cLineEdit->setText(QString::number(E_c));
-    ui->mLineEdit->setText(QString::number(m));
-    ui->N_d0LineEdit->setText(QString::number(N_d0));
-    ui->T_0LineEdit->setText(QString::number(T_0));
     ui->T_1LineEdit->setText(QString::number(T_1));
-
-    ui->E_dSlider->setValue(int(E_d/multiplier_E_d));
-    ui->E_gSlider->setValue(int(E_g/multiplier_E_g));
-    ui->E_cSlider->setValue(int(E_c/multiplier_E_c ));
-    ui->mSlider->setValue(int(m/multiplier_m));
-    ui->N_d0Slider->setValue(N_d0Pow);
-    ui->T_0Slider->setValue(T_0);
-    ui->T_1Slider->setValue(T_1);
-    ui->cancelButton->setEnabled(false);
-    ui->ApplyButton->setEnabled(false);
 }
 
-void Application::on_ApplyButton_clicked()
-{
-    E_g = ui->E_gLineEdit->text().toDouble();
-    E_g = ui->E_gLineEdit->text().toDouble();
-    E_c = ui->E_cLineEdit->text().toDouble();
-    m = ui->mLineEdit->text().toDouble();
-    N_d0 = ui->N_d0LineEdit->text().toDouble();
-    T_0 = ui->T_0LineEdit->text().toInt();
-    T_1 = ui->T_1LineEdit->text().toInt();
-    solver->setValue(E_d,E_g,E_c,m,N_d0);
-    solver->calcilate_F_from_T(T_0,T_1, tol,NT,Nn);
-    solver->saveData();
-    Silicon::plotPNGData();
-    Silicon::plotData();
-    ui->cancelButton->setEnabled(false);
-    ui->ApplyButton->setEnabled(false);
-}
