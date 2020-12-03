@@ -62,6 +62,22 @@ void Silicon::plot_eq_from_F(double F0, double F1, double T, int NF, int Nn) {
     gp.sendLine(R"(plot "eq_F.dat" with lines)");
 }
 
+void Silicon::setParameters(double T_0, double T_1, double E_d, double E_g, double E_c, double m, double N_d0) {
+    this->E_d = E_d;
+    this->E_g = E_g;
+    this->E_c = E_c;
+    this->m = m;
+    this->N_d0 = N_d0;
+
+    calcilate_F_from_T(T_0, T_1);
+}
+[[nodiscard]] std::vector<std::pair<double, std::complex<double>>> Silicon::get_F_T() {
+    return F_T.v_c;
+}
+[[nodiscard]] std::vector<std::pair<double, std::complex<double>>> Silicon::get_n_T() {
+    return n_T.v_c;
+}
+
 bool Silicon::saveData() {
     return saveVectorPoint2DToFile(F_T.real(), "F_T.dat") && saveVectorPoint2DToFile(n_T.real(), "n_T.dat");
 }

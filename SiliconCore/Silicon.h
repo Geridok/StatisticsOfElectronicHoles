@@ -68,13 +68,6 @@ public:
         this->m = m;
         this->N_d0 = N_d0;
     }
-    void setValue(double E_d, double E_g, double E_c, double m, double N_d0){
-        this->E_d = E_d;
-        this->E_g = E_g;
-        this->E_c = E_c;
-        this->m = m;
-        this->N_d0 = N_d0;
-    }
 
     double n(double F, double T, int N = 1000);
 
@@ -82,10 +75,15 @@ public:
 
     void plot_eq_from_F(double F0, double F1, double T, int NF = 1000, int Nn = 1000);
 
+    // qt style
+    void setParameters(double T_0, double T_1, double E_d, double E_g, double E_c, double m, double N_d0);
+    [[nodiscard]] std::vector<std::pair<double, std::complex<double>>> get_F_T();
+    [[nodiscard]] std::vector<std::pair<double, std::complex<double>>> get_n_T();
+
+
+    // gnuplot style
     bool saveData();
-
     static void plotData();
-
     static void plotPNGData();
 
 };
