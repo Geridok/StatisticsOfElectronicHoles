@@ -60,22 +60,24 @@ void Application::setSlidersLimit(){
 
 void Application::updateGraph()
 {
-    ui->F_TWidget->graph(0)->setData(T,F);
-    ui->F_TWidget->xAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
-    ui->F_TWidget->yAxis->setRange(*std::min_element(F.begin(),F.end()),*std::max_element(F.begin(),F.end()));
-    auto a = *std::min_element(F.begin(),F.end());
-    auto b = *std::max_element(F.begin(),F.end());
-    ui->F_TWidget->replot();
-    ui->F_TWidget->update();
+    //if(Time::deltaTime() > 0.3){
+        ui->F_TWidget->graph(0)->setData(T,F);
+        ui->F_TWidget->xAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
+        ui->F_TWidget->yAxis->setRange(*std::min_element(F.begin(),F.end()),*std::max_element(F.begin(),F.end()));
+        auto a = *std::min_element(F.begin(),F.end());
+        auto b = *std::max_element(F.begin(),F.end());
+        ui->F_TWidget->replot();
+        ui->F_TWidget->update();
 
-    ui->N_TWidget->graph(0)->setData(T,n);
-    ui->N_TWidget->xAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
-    ui->N_TWidget->yAxis->setRange(*std::min_element(n.begin(),n.end()),*std::max_element(n.begin(),n.end()));
-    auto c = *std::min_element(n.begin(),n.end());
-    auto d = *std::max_element(n.begin(),n.end());
-    ui->N_TWidget->replot();
-    ui->N_TWidget->update();
-
+        ui->N_TWidget->graph(0)->setData(T,n);
+        ui->N_TWidget->xAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
+        ui->N_TWidget->yAxis->setRange(*std::min_element(n.begin(),n.end()),*std::max_element(n.begin(),n.end()));
+        auto c = *std::min_element(n.begin(),n.end());
+        auto d = *std::max_element(n.begin(),n.end());
+        ui->N_TWidget->replot();
+        ui->N_TWidget->update();
+    //}
+    //Time::update();
 }
 
 void Application::reculculate()

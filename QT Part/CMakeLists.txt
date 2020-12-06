@@ -4,6 +4,7 @@ project(StatisticsOfElectronicHoles LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -14,7 +15,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets  PrintSupport REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets PrintSupport REQUIRED)
 
-set(SRC ../SiliconCore/Silicon.cpp ../SiliconCore/Silicon.h)
+set(SRC ../SiliconCore/Silicon.cpp ../SiliconCore/Silicon.h ../Time/Time.h ../Time/Time.cpp)
 add_library(Vectozavr ${SRC})
 
 add_executable(StatisticsOfElectronicHoles

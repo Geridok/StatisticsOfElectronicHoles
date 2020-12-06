@@ -6,6 +6,7 @@
 #include "adapterforvectozavr.h"
 #include "../SiliconCore/Silicon.h"
 #include <memory>
+#include "../Time/Time.h"
 namespace Ui {
 class Application;
 }

@@ -67,6 +67,10 @@ public:
         this->N_d0 = N_d0;
     }
 
+    Silicon(){
+
+    }
+
     double n(double F, double T, int N = 1000);
 
     void calcilate_F_from_T(double T_0, double T_1, double tol = 0.001f, int NT = 1000, int Nn = 1000);
