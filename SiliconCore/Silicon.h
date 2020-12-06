@@ -6,6 +6,7 @@
 #define SILICONCORE_SILICON_H
 
 #include "gnuplot.h"
+#include "FermiDirac.h"
 
 class Silicon {
 private:
@@ -14,15 +15,18 @@ private:
     double h = 1.0f;
     double k = 1.0f;
     */
-    double h = 6.62607015e-34;
-    double k = 1.380649e-23;
+    bool defined = false;
+
+    double h = 6.626e-27;
+    double h_bar = 1.055e-27;
+    double k = 1.381e-16;
 
     /*
      * Параметры для ввода в модель ( http://www.ioffe.ru/SVA/NSM/Semicond/Si/electric.html#Basic ):
      * 1) E_d - положение уровня донора
      * 2) E_g - ширина запрещённой зоны
      * 3) E_c - дно зоны проводимости
-     * 4) m - эффективная масса носителей заряда
+     * 4) me - эффективная масса носителей заряда
      * 5) N_d0 - концентрация доноров (задаётся от 10^15 до 10^22 на cm^3)
      * 6) T_0 - начальная температура
      * 7) T_1 - конечная температура
@@ -30,11 +34,11 @@ private:
      * TODO: Программа переводит все в единицы СГС (или в СИ по желанию).
     */
 
-    double E_d;
-    double E_g;
-    double E_c;
-    double m;
-    double N_d0;
+    double E_d = 0;
+    double E_g = 0;
+    double me = 0;
+    double mh = 0;
+    double N_d0 = 0;
 
     std::vector<double> v_F;
     std::vector<double> v_n;
@@ -42,41 +46,35 @@ private:
 
     std::vector<double> v_eq; // dependence eq on F
 
-    [[nodiscard]] double f_mult_g(double E, double F, double T) const {
-        return 1.0f/(2.0f*M_PI*M_PI)*pow(2.0f*m/(h*h), 1.5f) * sqrt(E - E_c)/(exp((E - F) / (k*T)) + 1);
-    }
-
-    double eq(double F, double T, int Nn = 1000) {
-        return E_g - E_d - k*T*log(N_d0/n(F, T, Nn) - 1) - F;
-    }
-
-    double deq(double F, double T, double dF = 0.0001f, int Nn = 1000){
-        double eq2 = eq(F + dF, T, Nn);
-        double eq1 = eq(F - dF, T, Nn);
-
-        return (eq2 - eq1) / (2.0f * dF);
+    [[nodiscard]] double eq(double F, double T) const {
+        return N_d0 * 1.0f / (1.0f + exp((E_g - E_d - F) / (k*T))) - n(F, T);
+        //return p(F, T) - n(F, T);
     }
 
 public:
-    Silicon(double E_d, double E_g, double E_c, double m, double N_d0)
+    Silicon(double E_d, double E_g, double me, double mh, double N_d0)
     {
         this->E_d = E_d;
         this->E_g = E_g;
-        this->E_c = E_c;
-        this->m = m;
+        this->me = me;
+        this->mh = mh;
         this->N_d0 = N_d0;
+        this->defined = true;
     }
 
-    Silicon(){
-
+    Silicon() {
+        this->defined = false;
     }
 
-    double n(double F, double T, int N = 1000);
+    [[nodiscard]] double n(double F, double T) const;
+    [[nodiscard]] double p(double F, double T) const;
 
-    void calcilate_F_from_T(double T_0, double T_1, double tol = 0.001f, int NT = 1000, int Nn = 1000);
+    [[nodiscard]] double effective_state_density(double m_eff, double T) const;
+
+    void calculate_F_from_T(double T_0, double T_1, int NT = 1000);
 
     // qt style
-    void setParameters(double T_0, double T_1, double E_d, double E_g, double E_c, double m, double N_d0);
+    void setParameters(double T_0, double T_1, double E_d, double E_g, double m, double N_d0);
     [[nodiscard]] const std::vector<double>& get_F() const;
     [[nodiscard]] const std::vector<double>& get_n() const;
     [[nodiscard]] const std::vector<double>& get_T() const;

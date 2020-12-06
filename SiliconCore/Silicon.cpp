@@ -5,23 +5,31 @@
 #include "Silicon.h"
 #include "gnuplot.h"
 
-double Silicon::n(double F, double T, int N) {
-    double inf = 1000.0f * E_c;
+double Silicon::effective_state_density(double m_eff, double T) const {
+    if(!defined)
+        return -1;
 
-    double dE = (inf - E_c) / N;
-    double E = E_c;
-
-    double S = 0.0f;
-
-    while (E < inf) {
-        S += f_mult_g(E, F, T) + 4.0f*f_mult_g(E + dE/2.0f, F, T) + f_mult_g(E + dE, F, T);
-        E += dE;
-    }
-
-    return S * dE / 6.0f;
+    return 2.0f * pow((2.0f * M_PI * m_eff * k * T / pow(2.0f * M_PI * h_bar, 2.0f)), 1.5f);
 }
 
-void Silicon::calcilate_F_from_T(double T_0, double T_1, double tol, int NT, int Nn){
+double Silicon::n(double F, double T) const {
+    if(!defined)
+        return -1;
+
+    return effective_state_density(me, T) * fd1((F - E_g) / (k * T));
+}
+
+double Silicon::p(double F, double T) const {
+    if(!defined)
+        return -1;
+
+    return effective_state_density(mh, T) * fd1(-F / (k * T));
+}
+
+void Silicon::calculate_F_from_T(double T_0, double T_1, int NT){
+    if(!defined)
+        return;
+
     v_n.clear();
     v_F.clear();
     v_T.clear();
@@ -30,6 +38,7 @@ void Silicon::calcilate_F_from_T(double T_0, double T_1, double tol, int NT, int
 
     double T = T_0;
     while(T < T_1) {
+        /*
         // Метод Ньютона
         double F_N = 0.0f; // искомое F
         double F1_N = 0.7f; // нулевое приближение
@@ -37,33 +46,58 @@ void Silicon::calcilate_F_from_T(double T_0, double T_1, double tol, int NT, int
         int s = 0; // число итераций
 
         // Real computation (is not workable now)
-        /*
+
         while(abs(F_N - F1_N) > tol) {
             F_N = F1_N;
             F1_N = F_N - eq(F_N + dF, T, Nn) / deq(F_N + dF, T, dF, Nn);
             s++;
         }
-        v_F.push_back(F_N);
-        v_n.push_back(n(F_N, T, Nn));
-        v_T.push_back(T);
-         */
+
         // for debug
-        v_F.push_back(E_d*E_g*E_c*m*N_d0*T*T);
-        v_n.push_back(E_d*E_g*E_c*m*N_d0*T*sin(T*T/100.0f));
+        //v_F.push_back(E_d * E_g * E_c * me * N_d0 * T * T);
+        //v_n.push_back(E_d * E_g * E_c * me * N_d0 * T * sin(T * T / 100.0f));
+        //v_T.push_back(T);
+        */
+        int iter = 0;
+        double a = -1.0f * E_g;
+        double b = +2.0f * E_g;
+
+        double tol = 1e-6 * E_g;
+
+        double F;
+
+        do {
+            F = (a + b) / 2.0;
+
+            if (eq(F, T) == 0) {
+                a = F;
+                b = F;
+            } else {
+                if (eq(a, T) * eq(F, T) > 0)
+                    a = F;
+                else
+                    b = F;
+            }
+            iter++;
+
+        } while (eq(F, T) != 0 && b - a > tol && iter < 1000);
+
+        v_F.push_back(F);
+        v_n.push_back(n(F, T));
         v_T.push_back(T);
 
         T += dT;
     }
 }
 
-void Silicon::setParameters(double T_0, double T_1, double E_d, double E_g, double E_c, double m, double N_d0) {
+void Silicon::setParameters(double T_0, double T_1, double E_d, double E_g, double me, double N_d0) {
     this->E_d = E_d;
     this->E_g = E_g;
-    this->E_c = E_c;
-    this->m = m;
+    this->me = me;
     this->N_d0 = N_d0;
+    this->defined = true;
 
-    calcilate_F_from_T(T_0, T_1);
+    calculate_F_from_T(T_0, T_1);
 }
 
 [[nodiscard]] const std::vector<double>& Silicon::get_F() const {

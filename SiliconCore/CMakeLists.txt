@@ -3,4 +3,4 @@ project(SiliconCore)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(SiliconCore main.cpp Silicon.cpp Silicon.h)
+add_executable(SiliconCore main.cpp Silicon.cpp Silicon.h FermiDirac.h FermiDirac.cpp)
