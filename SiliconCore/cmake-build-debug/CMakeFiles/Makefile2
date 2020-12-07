@@ -74,7 +74,6 @@ CMAKE_BINARY_DIR = "/Users/vladimir/Desktop/Work/Education/7 Семестр/Фо
 
 # The main recursive "all" target.
 all: CMakeFiles/SiliconCore.dir/all
-all: CMakeFiles/vemath.dir/all
 
 .PHONY : all
 
@@ -85,7 +84,6 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/SiliconCore.dir/clean
-clean: CMakeFiles/vemath.dir/clean
 
 .PHONY : clean
 
@@ -93,15 +91,15 @@ clean: CMakeFiles/vemath.dir/clean
 # Target rules for target CMakeFiles/SiliconCore.dir
 
 # All Build rule for target.
-CMakeFiles/SiliconCore.dir/all: CMakeFiles/vemath.dir/all
+CMakeFiles/SiliconCore.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SiliconCore.dir/build.make CMakeFiles/SiliconCore.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SiliconCore.dir/build.make CMakeFiles/SiliconCore.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/cmake-build-debug/CMakeFiles" --progress-num=1,2,3 "Built target SiliconCore"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/cmake-build-debug/CMakeFiles" --progress-num=1,2,3,4 "Built target SiliconCore"
 .PHONY : CMakeFiles/SiliconCore.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/SiliconCore.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/cmake-build-debug/CMakeFiles" 5
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/cmake-build-debug/CMakeFiles" 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/SiliconCore.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/cmake-build-debug/CMakeFiles" 0
 .PHONY : CMakeFiles/SiliconCore.dir/rule
@@ -115,33 +113,6 @@ SiliconCore: CMakeFiles/SiliconCore.dir/rule
 CMakeFiles/SiliconCore.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SiliconCore.dir/build.make CMakeFiles/SiliconCore.dir/clean
 .PHONY : CMakeFiles/SiliconCore.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/vemath.dir
-
-# All Build rule for target.
-CMakeFiles/vemath.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vemath.dir/build.make CMakeFiles/vemath.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vemath.dir/build.make CMakeFiles/vemath.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/cmake-build-debug/CMakeFiles" --progress-num=4,5 "Built target vemath"
-.PHONY : CMakeFiles/vemath.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/vemath.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/cmake-build-debug/CMakeFiles" 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/vemath.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/SiliconCore/cmake-build-debug/CMakeFiles" 0
-.PHONY : CMakeFiles/vemath.dir/rule
-
-# Convenience name for target.
-vemath: CMakeFiles/vemath.dir/rule
-
-.PHONY : vemath
-
-# clean rule for target.
-CMakeFiles/vemath.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vemath.dir/build.make CMakeFiles/vemath.dir/clean
-.PHONY : CMakeFiles/vemath.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

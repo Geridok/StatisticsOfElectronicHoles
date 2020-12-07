@@ -143,18 +143,32 @@ SiliconCore/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SiliconCore.dir/build.make CMakeFiles/SiliconCore.dir/build
 .PHONY : SiliconCore/fast
 
-#=============================================================================
-# Target rules for targets named vemath
+FermiDirac.o: FermiDirac.cpp.o
 
-# Build rule for target.
-vemath: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vemath
-.PHONY : vemath
+.PHONY : FermiDirac.o
 
-# fast build rule for target.
-vemath/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vemath.dir/build.make CMakeFiles/vemath.dir/build
-.PHONY : vemath/fast
+# target to build an object file
+FermiDirac.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SiliconCore.dir/build.make CMakeFiles/SiliconCore.dir/FermiDirac.cpp.o
+.PHONY : FermiDirac.cpp.o
+
+FermiDirac.i: FermiDirac.cpp.i
+
+.PHONY : FermiDirac.i
+
+# target to preprocess a source file
+FermiDirac.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SiliconCore.dir/build.make CMakeFiles/SiliconCore.dir/FermiDirac.cpp.i
+.PHONY : FermiDirac.cpp.i
+
+FermiDirac.s: FermiDirac.cpp.s
+
+.PHONY : FermiDirac.s
+
+# target to generate assembly for a file
+FermiDirac.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SiliconCore.dir/build.make CMakeFiles/SiliconCore.dir/FermiDirac.cpp.s
+.PHONY : FermiDirac.cpp.s
 
 Silicon.o: Silicon.cpp.o
 
@@ -210,33 +224,6 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SiliconCore.dir/build.make CMakeFiles/SiliconCore.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-vemath.o: vemath.cpp.o
-
-.PHONY : vemath.o
-
-# target to build an object file
-vemath.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vemath.dir/build.make CMakeFiles/vemath.dir/vemath.cpp.o
-.PHONY : vemath.cpp.o
-
-vemath.i: vemath.cpp.i
-
-.PHONY : vemath.i
-
-# target to preprocess a source file
-vemath.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vemath.dir/build.make CMakeFiles/vemath.dir/vemath.cpp.i
-.PHONY : vemath.cpp.i
-
-vemath.s: vemath.cpp.s
-
-.PHONY : vemath.s
-
-# target to generate assembly for a file
-vemath.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vemath.dir/build.make CMakeFiles/vemath.dir/vemath.cpp.s
-.PHONY : vemath.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -246,16 +233,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... SiliconCore"
-	@echo "... vemath"
+	@echo "... FermiDirac.o"
+	@echo "... FermiDirac.i"
+	@echo "... FermiDirac.s"
 	@echo "... Silicon.o"
 	@echo "... Silicon.i"
 	@echo "... Silicon.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... vemath.o"
-	@echo "... vemath.i"
-	@echo "... vemath.s"
 .PHONY : help
 
 

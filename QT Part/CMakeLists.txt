@@ -15,7 +15,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets  PrintSupport REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets PrintSupport REQUIRED)
 
-set(SRC ../SiliconCore/Silicon.cpp ../SiliconCore/Silicon.h ../Time/Time.h ../Time/Time.cpp)
+set(SRC ../SiliconCore/Silicon.cpp ../SiliconCore/Silicon.h ../Time/Time.h ../Time/Time.cpp ../SiliconCore/FermiDirac.cpp ../SiliconCore/FermiDirac.h)
 add_library(Vectozavr ${SRC})
 
 add_executable(StatisticsOfElectronicHoles
@@ -27,6 +27,7 @@ add_executable(StatisticsOfElectronicHoles
     qcustomplot.h
     qcpdocumentobject.cpp
     qcpdocumentobject.h
+    Icons.qrc
   )
 
 target_link_libraries(StatisticsOfElectronicHoles PRIVATE Vectozavr Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::PrintSupport)

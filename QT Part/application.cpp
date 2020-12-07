@@ -12,10 +12,20 @@ Application::Application(QWidget *parent) :
     ui->F_TWidget->addGraph();
     ui->F_TWidget->setInteraction(QCP::iRangeDrag,true);
     ui->F_TWidget->setInteraction(QCP::iRangeZoom,true);
+    //ui->F_TWidget->graph(0)->setLineStyle(QCPGraph::LineStyle::lsStepLeft);
+    ui->F_TWidget->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc,5));
+    ui->F_TWidget->xAxis->setLabel("Temperature");
+    ui->F_TWidget->yAxis->setLabel("Function");
 
     ui->N_TWidget->addGraph();
     ui->N_TWidget->setInteraction(QCP::iRangeDrag,true);
     ui->N_TWidget->setInteraction(QCP::iRangeZoom,true);
+   // ui->N_TWidget->graph(0)->setLineStyle(QCPGraph::LineStyle::lsStepLeft);
+    ui->N_TWidget->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc,5));
+    //ui->N_TWidget->graph(0)->setAdaptiveSampling(true);
+    ui->N_TWidget->xAxis->setLabel("Temperature");
+    ui->N_TWidget->yAxis->setLabel("Number");
+
     reculculate();
     updateGraph();
 
@@ -26,7 +36,6 @@ Application::Application(QWidget *parent) :
 void Application::setInitialValue(){
     ui->E_dLineEdit->setText(QString::number(E_d));
     ui->E_gLineEdit->setText(QString::number(E_g));
-    ui->E_cLineEdit->setText(QString::number(E_c));
     ui->mLineEdit->setText(QString::number(m));
     ui->N_d0LineEdit->setText(QString::number(N_d0));
     ui->T_0LineEdit->setText(QString::number(T_0));
@@ -35,26 +44,24 @@ void Application::setInitialValue(){
 }
 
 void Application::setSlidersLimit(){
-    ui->E_cSlider->setMinimum(1);
-    ui->E_cSlider->setMaximum(10);
 
     ui->E_dSlider->setMinimum(1);
-    ui->E_dSlider->setMaximum(10);
+    ui->E_dSlider->setMaximum(10000);
 
     ui->E_gSlider->setMinimum(1);
-    ui->E_gSlider->setMaximum(10);
+    ui->E_gSlider->setMaximum(10000);
 
     ui->mSlider->setMinimum(1);
-    ui->mSlider->setMaximum(10);
+    ui->mSlider->setMaximum(100000);
 
-    ui->N_d0Slider->setMinimum(15);
-    ui->N_d0Slider->setMaximum(22);
+    ui->N_d0Slider->setMinimum(13);
+    ui->N_d0Slider->setMaximum(23);
 
     ui->T_0Slider->setMinimum(0);
-    ui->T_0Slider->setMaximum(100);
+    ui->T_0Slider->setMaximum(1000);
 
     ui->T_1Slider->setMinimum(0);
-    ui->T_1Slider->setMaximum(100);
+    ui->T_1Slider->setMaximum(1000);
     ui->T_1Slider->setValue(T_1);
 }
 
@@ -64,16 +71,12 @@ void Application::updateGraph()
         ui->F_TWidget->graph(0)->setData(T,F);
         ui->F_TWidget->xAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
         ui->F_TWidget->yAxis->setRange(*std::min_element(F.begin(),F.end()),*std::max_element(F.begin(),F.end()));
-        auto a = *std::min_element(F.begin(),F.end());
-        auto b = *std::max_element(F.begin(),F.end());
         ui->F_TWidget->replot();
         ui->F_TWidget->update();
 
         ui->N_TWidget->graph(0)->setData(T,n);
         ui->N_TWidget->xAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
         ui->N_TWidget->yAxis->setRange(*std::min_element(n.begin(),n.end()),*std::max_element(n.begin(),n.end()));
-        auto c = *std::min_element(n.begin(),n.end());
-        auto d = *std::max_element(n.begin(),n.end());
         ui->N_TWidget->replot();
         ui->N_TWidget->update();
     //}
@@ -82,7 +85,7 @@ void Application::updateGraph()
 
 void Application::reculculate()
 {
-    solver->setParameters(T_0,T_1, E_d,E_g,E_c,m,N_d0);
+    solver->setParameters(T_0,T_1, E_d,E_g,m,N_d0);
     auto F = solver->get_F();
     auto T = solver->get_T();
     auto n = solver->get_n();
@@ -115,14 +118,6 @@ void Application::on_E_dSlider_valueChanged(int value)
     updateGraph();
 }
 
-void Application::on_E_cSlider_valueChanged(int value)
-{
-    E_c = double(value) * multiplier_E_c;
-    ui->E_cLineEdit->setText(QString::number(E_c));
-
-    reculculate();
-    updateGraph();
-}
 
 void Application::on_mSlider_valueChanged(int value)
 {

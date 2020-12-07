@@ -47,8 +47,8 @@ private:
     std::vector<double> v_eq; // dependence eq on F
 
     [[nodiscard]] double eq(double F, double T) const {
-        return N_d0 * 1.0f / (1.0f + exp((E_g - E_d - F) / (k*T))) - n(F, T);
-        //return p(F, T) - n(F, T);
+        //return N_d0 * 1.0f / (1.0f + exp((E_g - E_d - F) / (k*T))) - n(F, T);
+        return p(F, T) - n(F, T);
     }
 
 public:
