@@ -65,6 +65,9 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="toolTip">
+           <string>Position of the donor level</string>
+          </property>
           <property name="text">
            <string>E_d</string>
           </property>
@@ -122,6 +125,9 @@
             <width>30</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>Band gap</string>
           </property>
           <property name="text">
            <string>E_g</string>
@@ -181,6 +187,10 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="toolTip">
+           <string>Effective mass of charge carrier
+</string>
+          </property>
           <property name="text">
            <string>m</string>
           </property>
@@ -238,6 +248,9 @@
             <width>40</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>Donor concentration</string>
           </property>
           <property name="text">
            <string>N_d0</string>
@@ -297,6 +310,9 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="toolTip">
+           <string>Initial temperature</string>
+          </property>
           <property name="text">
            <string>T_0</string>
           </property>
@@ -354,6 +370,9 @@
             <width>40</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>End temperature</string>
           </property>
           <property name="text">
            <string>T_1</string>
