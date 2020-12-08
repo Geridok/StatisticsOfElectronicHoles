@@ -6,9 +6,9 @@ Information::Information(QWidget *parent) :
     ui(new Ui::Information)
 {
     ui->setupUi(this);
-    auto img = QPixmap(":/Photos/Photos/62591927_120273162557623_7382008311468754349_n.jpg");
+    auto img = QPixmap(":/Photos/Photos/IMG_5766.jpg");
 
-    ui->ImageLabel->setPixmap(img.scaled(300,300));
+    ui->ImageLabel->setPixmap(img.scaled(300,300, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
 Information::~Information()
