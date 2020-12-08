@@ -162,3 +162,18 @@ void Application::on_T_1Slider_valueChanged(int value)
     ui->T_1LineEdit->setText(QString::number(T_1));
 }
 
+
+void Application::on_actionSave_triggered()
+{
+
+    SaveWindow saver(ui->F_TWidget,ui->N_TWidget,F,T,n);
+    saver.setModal(true);
+    saver.exec();
+}
+
+void Application::on_actionAbout_triggered()
+{
+    Information inf;
+    inf.setModal(true);
+    inf.exec();
+}

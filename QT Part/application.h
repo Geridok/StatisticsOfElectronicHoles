@@ -7,6 +7,8 @@
 #include "../SiliconCore/Silicon.h"
 #include <memory>
 #include "../Time/Time.h"
+#include "savewindow.h"
+#include "information.h"
 namespace Ui {
 class Application;
 }
@@ -18,6 +20,9 @@ class Application : public QMainWindow
 public:
     explicit Application(QWidget *parent = nullptr);
     ~Application();
+    void foo(){
+
+    };
 
 private slots:
 
@@ -32,6 +37,10 @@ private slots:
     void on_T_0Slider_valueChanged(int value);
 
     void on_T_1Slider_valueChanged(int value);
+
+    void on_actionSave_triggered();
+
+    void on_actionAbout_triggered();
 
 private:
     Ui::Application *ui;

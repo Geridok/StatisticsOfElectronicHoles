@@ -28,6 +28,12 @@ add_executable(StatisticsOfElectronicHoles
     qcpdocumentobject.cpp
     qcpdocumentobject.h
     Icons.qrc
+    savewindow.cpp
+    savewindow.h
+    savewindow.ui
+    information.cpp
+    information.h
+    information.ui
   )
 
 target_link_libraries(StatisticsOfElectronicHoles PRIVATE Vectozavr Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::PrintSupport)

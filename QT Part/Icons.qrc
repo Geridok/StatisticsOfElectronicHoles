@@ -5,4 +5,7 @@
         <file>Icons/download_BW.png</file>
         <file>Icons/information_BW.png</file>
     </qresource>
+    <qresource prefix="/Photos">
+        <file>Photos/62591927_120273162557623_7382008311468754349_n.jpg</file>
+    </qresource>
 </RCC>
