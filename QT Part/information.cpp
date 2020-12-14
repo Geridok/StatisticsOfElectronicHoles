@@ -1,6 +1,8 @@
 #include "information.h"
 #include "ui_information.h"
 #include <QPixmap>
+#include <QDesktopServices>
+#include <QUrl>
 Information::Information(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Information)
@@ -19,4 +21,10 @@ Information::~Information()
 void Information::on_OkButton_clicked()
 {
     close();
+}
+
+void Information::on_pushButton_clicked()
+{
+    QString link = "https://github.com/Geridok/StatisticsOfElectronicHoles/blob/main/about.pdf";
+    QDesktopServices::openUrl(QUrl(link));
 }

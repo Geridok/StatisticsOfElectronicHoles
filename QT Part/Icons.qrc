@@ -4,6 +4,8 @@
         <file>Icons/information.png</file>
         <file>Icons/download_BW.png</file>
         <file>Icons/information_BW.png</file>
+        <file>Icons/NotChecked.png</file>
+        <file>Icons/Checked.png</file>
     </qresource>
     <qresource prefix="/Photos">
         <file>Photos/IMG_5766.jpg</file>

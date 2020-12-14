@@ -8,11 +8,16 @@ Application::Application(QWidget *parent) :
 {
     ui->setupUi(this);
     solver = std::make_shared<Silicon>( Silicon());
+    QIcon icon;
+    icon.addFile(QStringLiteral(":/icons/Icons/NotChecked.png"), QSize(), QIcon::Normal, QIcon::Off);
+    icon.addFile(QStringLiteral(":/icons/Icons/Checked.png"), QSize(), QIcon::Normal, QIcon::On);
+    ui->logScaleButton->setIcon(icon);
 
     ui->F_TWidget->addGraph();
     ui->F_TWidget->setInteraction(QCP::iRangeDrag,true);
     ui->F_TWidget->setInteraction(QCP::iRangeZoom,true);
     ui->F_TWidget->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc,5));
+    ui->F_TWidget->graph(0)->setName("F");
     ui->F_TWidget->xAxis->setLabel("Temperature");
     ui->F_TWidget->yAxis->setLabel("Fermi level");
 
@@ -25,13 +30,16 @@ Application::Application(QWidget *parent) :
     ui->F_TWidget->graph(2)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc,5));
     ui->F_TWidget->graph(2)->setPen(QPen(Qt::green));
     ui->F_TWidget->graph(2)->setName("E_d");
+    ui->F_TWidget->legend->setVisible(true);
 
     ui->N_TWidget->addGraph();
     ui->N_TWidget->setInteraction(QCP::iRangeDrag,true);
     ui->N_TWidget->setInteraction(QCP::iRangeZoom,true);
     ui->N_TWidget->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc,5));
+    ui->N_TWidget->graph(0)->setName("n");
     ui->N_TWidget->xAxis->setLabel("Temperature");
     ui->N_TWidget->yAxis->setLabel("Number");
+    ui->N_TWidget->legend->setVisible(true);
 
     reculculate();
     updateGraph();
@@ -44,7 +52,7 @@ Application::Application(QWidget *parent) :
     setInitialValue();
     ui->E_dSlider->setValue((E_d/multiplier_E_d)*1000);
     ui->E_gSlider->setValue((E_g/multiplier_E_g) * 1000);
-    ui->N_d0Slider->setValue(1500);
+    ui->N_d0Slider->setValue(1600);
     reculculate();
     updateGraph();
 }
@@ -66,11 +74,12 @@ void Application::setSlidersLimit(){
     ui->E_gSlider->setMinimum(1);
     ui->E_gSlider->setMaximum(3000);
 
-    ui->N_d0Slider->setMinimum(1300);
+    ui->N_d0Slider->setMinimum(1500);
     ui->N_d0Slider->setMaximum(2500);
 
     ui->T_0Slider->setMinimum(0);
     ui->T_0Slider->setMaximum(1000);
+    ui->T_0Slider->setValue(T_0);
 
     ui->T_1Slider->setMinimum(0);
     ui->T_1Slider->setMaximum(1200);
@@ -82,6 +91,14 @@ void Application::updateGraph()
         ui->F_TWidget->graph(0)->setData(T,F);
         ui->F_TWidget->graph(1)->setData(TP,E_gP);
         ui->F_TWidget->graph(2)->setData(TP,E_dP);
+        if(ui->logScaleButton->isChecked()){
+            F.push_back(log(E_g));
+            F.push_back(log(E_d));
+        }else{
+            F.push_back(E_g);
+            F.push_back(E_d);
+        }
+
         ui->F_TWidget->xAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
         ui->F_TWidget->yAxis->setRange(*std::min_element(F.begin(),F.end()),*std::max_element(F.begin(),F.end()));
         ui->F_TWidget->replot();
@@ -105,22 +122,39 @@ void Application::reculculate()
 
 
     solver->setParameters(T_0,T_1, E_d,E_g,me_eff,N_d0);
-    auto F = solver->get_F();
-    auto T = solver->get_T();
-    auto n = solver->get_n();
-    this->F = QVector<double>(F.begin(),F.end());
-    this->T = QVector<double>(T.begin(),T.end());
-    this->n = QVector<double>(n.begin(),n.end());
+    if(ui->logScaleButton->isChecked()){
+        auto F = solver->get_F_log();
+        auto T = solver->get_T();
+        auto n = solver->get_n_log();
+        this->F = QVector<double>(F.begin(),F.end());
+        this->T = QVector<double>(T.begin(),T.end());
+        this->n = QVector<double>(n.begin(),n.end());
 
-    T_point.push_back(this->T[0]);
-    T_point.push_back(this->T[this->T.size() - 1]);
+        T_point.push_back(this->T[0]);
+        T_point.push_back(this->T[this->T.size() - 1]);
 
-    E_dPoint.push_back(log(E_d));
-    E_dPoint.push_back(log(E_d));
+        E_dPoint.push_back(log(E_d));
+        E_dPoint.push_back(log(E_d));
 
-    E_gPoint.push_back(log(E_g));
-    E_gPoint.push_back(log(E_g));
+        E_gPoint.push_back(log(E_g));
+        E_gPoint.push_back(log(E_g));
+    }else{
+        auto F = solver->get_F();
+        auto T = solver->get_T();
+        auto n = solver->get_n();
+        this->F = QVector<double>(F.begin(),F.end());
+        this->T = QVector<double>(T.begin(),T.end());
+        this->n = QVector<double>(n.begin(),n.end());
 
+        T_point.push_back(this->T[0]);
+        T_point.push_back(this->T[this->T.size() - 1]);
+
+        E_dPoint.push_back((E_d));
+        E_dPoint.push_back((E_d));
+
+        E_gPoint.push_back((E_g));
+        E_gPoint.push_back((E_g));
+    }
     TP = T_point;
     E_dP = E_dPoint;
     E_gP = E_gPoint;
@@ -201,4 +235,12 @@ void Application::on_actionAbout_triggered()
     Information inf;
     inf.setModal(true);
     inf.exec();
+}
+
+
+
+void Application::on_logScaleButton_clicked()
+{
+    reculculate();
+    updateGraph();
 }

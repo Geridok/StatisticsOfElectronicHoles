@@ -40,6 +40,8 @@ private slots:
 
     void on_actionAbout_triggered();
 
+    void on_logScaleButton_clicked();
+
 private:
     Ui::Application *ui;
     std::shared_ptr<Silicon> solver;
@@ -57,8 +59,8 @@ private:
     double E_d = 0;
     double E_g = 1.12 * 1.602e-12;
     double N_d0 = 1.0e15;
-    double N_d0Pow = 1.0e15;
-    int T_0 = 10.0f;
+    double N_d0Pow = 1.0e16;
+    int T_0 = 50.0f;
     int T_1 = 1200.0f;
     //const Value
     //func
