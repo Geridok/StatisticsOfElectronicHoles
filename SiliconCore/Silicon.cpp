@@ -125,6 +125,17 @@ void Silicon::setParameters(double T_0, double T_1, double E_d, double E_g, doub
     return v_T;
 }
 
+[[nodiscard]] const std::vector<double>& Silicon::get_F_log() {
+    for (auto& e : v_F)
+        e = log(e);
+    return v_F;
+}
+[[nodiscard]] const std::vector<double>& Silicon::get_n_log() {
+    for (auto& e : v_n)
+        e = log(e);
+    return v_n;
+}
+
 bool Silicon::saveData() {
     std::ofstream _ofstreamF("F_T.dat");
     std::ofstream _ofstreamN("n_T.dat");
