@@ -17,9 +17,9 @@ private:
     */
     bool defined = false;
 
-    double h = 6.626e-27;
-    double h_bar = 1.055e-27;
-    double k = 1.381e-16;
+    double _h = 6.626e-27;
+    double _h_bar = 1.055e-27;
+    double _k = 1.381e-16;
 
     /*
      * Параметры для ввода в модель ( http://www.ioffe.ru/SVA/NSM/Semicond/Si/electric.html#Basic ):
@@ -34,11 +34,11 @@ private:
      * TODO: Программа переводит все в единицы СГС (или в СИ по желанию).
     */
 
-    double E_d = 0;
-    double E_g = 0;
-    double me = 0;
-    double mh = 0;
-    double N_d0 = 0;
+    double _E_d = 0;
+    double _E_g = 0;
+    double _me = 0;
+    double _mh = 0;
+    double _N_d0 = 0;
 
     std::vector<double> v_F;
     std::vector<double> v_n;
@@ -47,18 +47,18 @@ private:
     std::vector<double> v_eq; // dependence eq on F
 
     [[nodiscard]] double eq(double F, double T) const {
-        //return N_d0 * 1.0f / (1.0f + exp((E_g - E_d - F) / (k*T))) - n(F, T);
-        return p(F, T) - n(F, T);
+        return _N_d0 * 1.0f / (1.0f + exp((_E_g - _E_d - F) / (_k*T))) - n(F, T);
+        //return p(F, T) - n(F, T);
     }
 
 public:
     Silicon(double E_d, double E_g, double me, double mh, double N_d0)
     {
-        this->E_d = E_d;
-        this->E_g = E_g;
-        this->me = me;
-        this->mh = mh;
-        this->N_d0 = N_d0;
+        this->_E_d = E_d;
+        this->_E_g = E_g;
+        this->_me = me;
+        this->_mh = mh;
+        this->_N_d0 = N_d0;
         this->defined = true;
     }
 

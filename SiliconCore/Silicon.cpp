@@ -9,21 +9,36 @@ double Silicon::effective_state_density(double m_eff, double T) const {
     if(!defined)
         return -1;
 
-    return 2.0f * pow((2.0f * M_PI * m_eff * k * T / pow(2.0f * M_PI * h_bar, 2.0f)), 1.5f);
+    return 2.0f * pow((2.0f * M_PI * m_eff * _k * T / pow(2.0f * M_PI * _h_bar, 2.0f)), 1.5f);
 }
 
 double Silicon::n(double F, double T) const {
     if(!defined)
         return -1;
 
-    return effective_state_density(me, T) * fd1((F - E_g) / (k * T));
+    return effective_state_density(_me, T) * fd1((F - _E_g) / (_k * T));
+    /*
+    double x0 = E_g;
+    double x1 = E_g*10000.0f;
+    double h = (x1 - x0) / 100000.0f;
+    double x = x0;
+
+    double S = 0.0f;
+
+    while (x < x1) {
+        S += f(x) + 4.0f*f(x + h/2.0f) + f(x + h);
+        x += h;
+    }
+
+    return S * h / 6;
+    */
 }
 
 double Silicon::p(double F, double T) const {
     if(!defined)
         return -1;
 
-    return effective_state_density(mh, T) * fd1(-F / (k * T));
+    return effective_state_density(_mh, T) * fd1(-F / (_k * T));
 }
 
 void Silicon::calculate_F_from_T(double T_0, double T_1, int NT){
@@ -59,10 +74,10 @@ void Silicon::calculate_F_from_T(double T_0, double T_1, int NT){
         //v_T.push_back(T);
         */
         int iter = 0;
-        double a = -1.0f * E_g;
-        double b = +2.0f * E_g;
+        double a = -1.0f * _E_g;
+        double b = +2.0f * _E_g;
 
-        double tol = 1e-6 * E_g;
+        double tol = 1e-6 * _E_g;
 
         double F;
 
@@ -91,10 +106,10 @@ void Silicon::calculate_F_from_T(double T_0, double T_1, int NT){
 }
 
 void Silicon::setParameters(double T_0, double T_1, double E_d, double E_g, double me, double N_d0) {
-    this->E_d = E_d;
-    this->E_g = E_g;
-    this->me = me;
-    this->N_d0 = N_d0;
+    this->_E_d = E_d;
+    this->_E_g = E_g;
+    this->_me = me;
+    this->_N_d0 = N_d0;
     this->defined = true;
 
     calculate_F_from_T(T_0, T_1);

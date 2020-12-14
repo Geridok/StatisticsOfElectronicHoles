@@ -58,27 +58,32 @@ int main() {
     double E_g = 1.0f;
     double E_c = 1.0f;
     double me = 1.0f;
-    double N_d0 = 1.0f;
-    double T_0 = 0.0f;
-    double T_1 = 100.0f;
+    double mh = 1.0f;
+    double N_d0 = 10.0f;
+    double T_0 = 10.0f;
+    double T_1 = 1200.0f;
     */
-    double E_d = 1.12 * 1.602e-12;
-    double E_g = 1.12 * 1.602e-12;
-    double me = 0.36 * 9.109e-28;
-    double mh = 0.81 * 9.109e-28;
-    double N_d0 = 1e18;
-    double T_0 = 100.0f;
-    double T_1 = 1000.0f;
+    double eV = 1.602e-12;
+    double me = 9.109e-28;
+
+    double E_g = 1.12 * eV;
+    double E_d = E_g - 0.054 * eV;
+    double me_eff = 0.36 * me;
+    double mh_eff = 0.81 * me;
+    double T_0 = 10.0f;
+    double T_1 = 1200.0f;
+
+    double N_d0 = 1e15;
 
     // TODO: solve main equation: F = E_g - E_d - k*T * ln(N_d0/n(F) - 1)
     int NT = 1000;
 
-    Silicon silicon(E_d, E_g, me, mh, N_d0);
+    Silicon silicon(E_d, E_g, me_eff, mh_eff, N_d0);
     silicon.calculate_F_from_T(T_0, T_1, NT);
     cout << "save data ... " << silicon.saveData() << endl;
 
     Silicon::plotPNGData();
     Silicon::plotData();
 
-    cout << silicon.effective_state_density(me, 300) << endl;
+
 }
