@@ -46,6 +46,9 @@ private:
     QVector<double> F;
     QVector<double> T;
     QVector<double> n;
+    QVector<double> TP;
+    QVector<double> E_dP;
+    QVector<double> E_gP;
 private:
     //Multipliers
     double multiplier_E_d = 1.602e-12;

@@ -14,7 +14,17 @@ Application::Application(QWidget *parent) :
     ui->F_TWidget->setInteraction(QCP::iRangeZoom,true);
     ui->F_TWidget->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc,5));
     ui->F_TWidget->xAxis->setLabel("Temperature");
-    ui->F_TWidget->yAxis->setLabel("Function");
+    ui->F_TWidget->yAxis->setLabel("Fermi level");
+
+    ui->F_TWidget->addGraph();
+    ui->F_TWidget->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc,5));
+    ui->F_TWidget->graph(1)->setPen(QPen(Qt::red));
+    ui->F_TWidget->graph(1)->setName("E_g");
+
+    ui->F_TWidget->addGraph();
+    ui->F_TWidget->graph(2)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc,5));
+    ui->F_TWidget->graph(2)->setPen(QPen(Qt::green));
+    ui->F_TWidget->graph(2)->setName("E_d");
 
     ui->N_TWidget->addGraph();
     ui->N_TWidget->setInteraction(QCP::iRangeDrag,true);
@@ -70,6 +80,8 @@ void Application::setSlidersLimit(){
 void Application::updateGraph()
 {
         ui->F_TWidget->graph(0)->setData(T,F);
+        ui->F_TWidget->graph(1)->setData(TP,E_gP);
+        ui->F_TWidget->graph(2)->setData(TP,E_dP);
         ui->F_TWidget->xAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
         ui->F_TWidget->yAxis->setRange(*std::min_element(F.begin(),F.end()),*std::max_element(F.begin(),F.end()));
         ui->F_TWidget->replot();
@@ -87,6 +99,11 @@ void Application::reculculate()
     double me = 9.109e-28;
     double me_eff = 0.36 * me;
 
+    QVector<double> T_point;
+    QVector<double> E_dPoint;
+    QVector<double> E_gPoint;
+
+
     solver->setParameters(T_0,T_1, E_d,E_g,me_eff,N_d0);
     auto F = solver->get_F();
     auto T = solver->get_T();
@@ -94,6 +111,19 @@ void Application::reculculate()
     this->F = QVector<double>(F.begin(),F.end());
     this->T = QVector<double>(T.begin(),T.end());
     this->n = QVector<double>(n.begin(),n.end());
+
+    T_point.push_back(this->T[0]);
+    T_point.push_back(this->T[this->T.size() - 1]);
+
+    E_dPoint.push_back(E_d);
+    E_dPoint.push_back(E_d);
+
+    E_gPoint.push_back(E_g);
+    E_gPoint.push_back(E_g);
+
+    TP = T_point;
+    E_dP = E_dPoint;
+    E_gP = E_gPoint;
 }
 
 Application::~Application()
