@@ -97,8 +97,8 @@ void Silicon::calculate_F_from_T(double T_0, double T_1, int NT){
 
         } while (eq(F, T) != 0 && b - a > tol && iter < 1000);
 
-        v_F.push_back(log(F));
-        v_n.push_back(log(n(F, T)));
+        v_F.push_back((F));
+        v_n.push_back((n(F, T)));
         v_T.push_back(T);
 
         T += dT;
