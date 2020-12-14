@@ -30,8 +30,6 @@ private slots:
 
     void on_E_dSlider_valueChanged(int value);
 
-    void on_mSlider_valueChanged(int value);
-
     void on_N_d0Slider_valueChanged(int value);
 
     void on_T_0Slider_valueChanged(int value);
@@ -50,17 +48,16 @@ private:
     QVector<double> n;
 private:
     //Multipliers
-    double multiplier_E_d = 1.602e-14;
-    double multiplier_E_g = 1.603e-14;
-    double multiplier_m = 9.109e-33;
+    double multiplier_E_d = 1.602e-12;
+    double multiplier_E_g = 1.603e-12;
     //Changeble values
-    double E_d = 1.12 * 1.602e-14;
-    double E_g = 1.12 * 1.602e-14;
-    double m = 0.36 * 9.109e-33;
-    double N_d0 = 1.0e18;
-    double N_d0Pow = 18;
-    int T_0 = 100.0f;
-    int T_1 = 1000.0f;
+    double E_d = 0;
+    double E_g = 1.12 * 1.602e-12;
+    double N_d0 = 1.0e15;
+    double N_d0Pow = 1.0e15;
+    int T_0 = 10.0f;
+    int T_1 = 1200.0f;
+    //const Value
     //func
     void setInitialValue();
     void setSlidersLimit();

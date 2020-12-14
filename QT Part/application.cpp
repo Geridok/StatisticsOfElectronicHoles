@@ -12,7 +12,6 @@ Application::Application(QWidget *parent) :
     ui->F_TWidget->addGraph();
     ui->F_TWidget->setInteraction(QCP::iRangeDrag,true);
     ui->F_TWidget->setInteraction(QCP::iRangeZoom,true);
-    //ui->F_TWidget->graph(0)->setLineStyle(QCPGraph::LineStyle::lsStepLeft);
     ui->F_TWidget->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc,5));
     ui->F_TWidget->xAxis->setLabel("Temperature");
     ui->F_TWidget->yAxis->setLabel("Function");
@@ -20,9 +19,7 @@ Application::Application(QWidget *parent) :
     ui->N_TWidget->addGraph();
     ui->N_TWidget->setInteraction(QCP::iRangeDrag,true);
     ui->N_TWidget->setInteraction(QCP::iRangeZoom,true);
-   // ui->N_TWidget->graph(0)->setLineStyle(QCPGraph::LineStyle::lsStepLeft);
     ui->N_TWidget->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc,5));
-    //ui->N_TWidget->graph(0)->setAdaptiveSampling(true);
     ui->N_TWidget->xAxis->setLabel("Temperature");
     ui->N_TWidget->yAxis->setLabel("Number");
 
@@ -31,12 +28,20 @@ Application::Application(QWidget *parent) :
 
     setSlidersLimit();
     setInitialValue();
+    E_g = 1.12 * 1.602e-12;
+    E_d = E_g - 0.054 * 1.602e-12;
+    N_d0 = 1.0e15;
+    setInitialValue();
+    ui->E_dSlider->setValue((E_d/multiplier_E_d)*1000);
+    ui->E_gSlider->setValue((E_g/multiplier_E_g) * 1000);
+    ui->N_d0Slider->setValue(1500);
+    reculculate();
+    updateGraph();
 }
 
 void Application::setInitialValue(){
     ui->E_dLineEdit->setText(QString::number(E_d));
     ui->E_gLineEdit->setText(QString::number(E_g));
-    ui->mLineEdit->setText(QString::number(m));
     ui->N_d0LineEdit->setText(QString::number(N_d0));
     ui->T_0LineEdit->setText(QString::number(T_0));
     ui->T_1LineEdit->setText(QString::number(T_1));
@@ -46,28 +51,24 @@ void Application::setInitialValue(){
 void Application::setSlidersLimit(){
 
     ui->E_dSlider->setMinimum(1);
-    ui->E_dSlider->setMaximum(10000);
+    ui->E_dSlider->setMaximum(3000);
 
     ui->E_gSlider->setMinimum(1);
-    ui->E_gSlider->setMaximum(10000);
+    ui->E_gSlider->setMaximum(3000);
 
-    ui->mSlider->setMinimum(1);
-    ui->mSlider->setMaximum(100000);
-
-    ui->N_d0Slider->setMinimum(13);
-    ui->N_d0Slider->setMaximum(23);
+    ui->N_d0Slider->setMinimum(1300);
+    ui->N_d0Slider->setMaximum(2500);
 
     ui->T_0Slider->setMinimum(0);
     ui->T_0Slider->setMaximum(1000);
 
     ui->T_1Slider->setMinimum(0);
-    ui->T_1Slider->setMaximum(1000);
+    ui->T_1Slider->setMaximum(1200);
     ui->T_1Slider->setValue(T_1);
 }
 
 void Application::updateGraph()
 {
-    //if(Time::deltaTime() > 0.3){
         ui->F_TWidget->graph(0)->setData(T,F);
         ui->F_TWidget->xAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
         ui->F_TWidget->yAxis->setRange(*std::min_element(F.begin(),F.end()),*std::max_element(F.begin(),F.end()));
@@ -79,13 +80,14 @@ void Application::updateGraph()
         ui->N_TWidget->yAxis->setRange(*std::min_element(n.begin(),n.end()),*std::max_element(n.begin(),n.end()));
         ui->N_TWidget->replot();
         ui->N_TWidget->update();
-    //}
-    //Time::update();
 }
 
 void Application::reculculate()
 {
-    solver->setParameters(T_0,T_1, E_d,E_g,m,N_d0);
+    double me = 9.109e-28;
+    double me_eff = 0.36 * me;
+
+    solver->setParameters(T_0,T_1, E_d,E_g,me_eff,N_d0);
     auto F = solver->get_F();
     auto T = solver->get_T();
     auto n = solver->get_n();
@@ -102,7 +104,8 @@ Application::~Application()
 
 void Application::on_E_gSlider_valueChanged(int value)
 {
-    E_g = double(value) * multiplier_E_g;
+    double cor = double(value)/1000.0;
+    E_g = cor * multiplier_E_g;
     ui->E_gLineEdit->setText(QString::number(E_g));
 
     reculculate();
@@ -111,7 +114,8 @@ void Application::on_E_gSlider_valueChanged(int value)
 
 void Application::on_E_dSlider_valueChanged(int value)
 {
-    E_d = double(value) * multiplier_E_d;
+    double cor = double(value)/1000.0;
+    E_d = cor * multiplier_E_d;
     ui->E_dLineEdit->setText(QString::number(E_d));
 
     reculculate();
@@ -119,19 +123,10 @@ void Application::on_E_dSlider_valueChanged(int value)
 }
 
 
-void Application::on_mSlider_valueChanged(int value)
-{
-    m = double(value) * multiplier_m;
-    ui->mLineEdit->setText(QString::number(m));
-
-    reculculate();
-    updateGraph();
-}
-
 void Application::on_N_d0Slider_valueChanged(int value)
 {
-    N_d0Pow = double(value);
-    N_d0 = pow(10,N_d0Pow);
+    double cor = double(value)/100.0;
+    N_d0 = pow(10,cor);
     ui->N_d0LineEdit->setText(QString::number(N_d0));
 
     reculculate();
