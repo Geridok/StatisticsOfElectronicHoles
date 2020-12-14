@@ -115,11 +115,11 @@ void Application::reculculate()
     T_point.push_back(this->T[0]);
     T_point.push_back(this->T[this->T.size() - 1]);
 
-    E_dPoint.push_back(E_d);
-    E_dPoint.push_back(E_d);
+    E_dPoint.push_back(log(E_d));
+    E_dPoint.push_back(log(E_d));
 
-    E_gPoint.push_back(E_g);
-    E_gPoint.push_back(E_g);
+    E_gPoint.push_back(log(E_g));
+    E_gPoint.push_back(log(E_g));
 
     TP = T_point;
     E_dP = E_dPoint;
