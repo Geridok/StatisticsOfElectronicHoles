@@ -75,6 +75,10 @@ public:
 
     // qt style
     void setParameters(double T_0, double T_1, double E_d, double E_g, double m, double N_d0);
+
+    [[nodiscard]] const std::vector<double>& get_F_log();
+    [[nodiscard]] const std::vector<double>& get_n_log();
+
     [[nodiscard]] const std::vector<double>& get_F() const;
     [[nodiscard]] const std::vector<double>& get_n() const;
     [[nodiscard]] const std::vector<double>& get_T() const;
