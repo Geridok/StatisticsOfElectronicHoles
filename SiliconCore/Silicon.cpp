@@ -97,8 +97,8 @@ void Silicon::calculate_F_from_T(double T_0, double T_1, int NT){
 
         } while (eq(F, T) != 0 && b - a > tol && iter < 1000);
 
-        v_F.push_back(F);
-        v_n.push_back(n(F, T));
+        v_F.push_back(log(F));
+        v_n.push_back(log(n(F, T)));
         v_T.push_back(T);
 
         T += dT;
@@ -128,6 +128,9 @@ void Silicon::setParameters(double T_0, double T_1, double E_d, double E_g, doub
 bool Silicon::saveData() {
     std::ofstream _ofstreamF("F_T.dat");
     std::ofstream _ofstreamN("n_T.dat");
+    std::ofstream _ofstreamEd("Ed.dat");
+    std::ofstream _ofstreamEg("Eg.dat");
+
 
     if (!_ofstreamF.is_open() || !_ofstreamN.is_open() || v_F.size() != v_T.size() || v_n.size() != v_T.size())
         return false;
@@ -137,15 +140,23 @@ bool Silicon::saveData() {
         _ofstreamN << v_T[i] << "\t" << v_n[i] << std::endl;
     }
 
+    _ofstreamEd << "0" << "\t" << log(this->_E_d) << std::endl;
+    _ofstreamEd << "1200" << "\t" << log(this->_E_d) << std::endl;
+    _ofstreamEg << "0" << "\t" << log(this->_E_g) << std::endl;
+    _ofstreamEg << "1200" << "\t" << log(this->_E_g) << std::endl;
+
     _ofstreamF.close();
     _ofstreamN.close();
+    _ofstreamEd.close();
+    _ofstreamEg.close();
+
     return true;
 }
 
 void Silicon::plotData() {
     GnuplotPipe gp;
     gp.sendLine(R"(set multiplot layout 2,1)");
-    gp.sendLine(R"(plot "F_T.dat" with lines)");
+    gp.sendLine(R"(plot "F_T.dat" with lines, "Ed.dat" with lines, "Eg.dat" with lines)");
     gp.sendLine(R"(plot "n_T.dat" with lines)");
 }
 

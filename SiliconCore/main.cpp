@@ -73,7 +73,7 @@ int main() {
     double T_0 = 10.0f;
     double T_1 = 1200.0f;
 
-    double N_d0 = 1e15;
+    double N_d0 = 1e16;
 
     // TODO: solve main equation: F = E_g - E_d - k*T * ln(N_d0/n(F) - 1)
     int NT = 1000;
