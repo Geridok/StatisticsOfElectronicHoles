@@ -119,9 +119,9 @@ void Application::reculculate()
         auto F = solver->get_F();
         auto T = solver->get_T();
         auto n = solver->get_n_log();
-        this->F = QVector<double>(F.begin(),F.end());
-        this->T = QVector<double>(T.begin(),T.end());
-        this->n = QVector<double>(n.begin(),n.end());
+        this->F = QVector<double>::fromStdVector(F);
+        this->T = QVector<double>::fromStdVector(T);
+        this->n = QVector<double>::fromStdVector(n);
 
         T_point.push_back(this->T[0]);
         T_point.push_back(this->T[this->T.size() - 1]);
@@ -135,9 +135,9 @@ void Application::reculculate()
         auto F = solver->get_F();
         auto T = solver->get_T();
         auto n = solver->get_n();
-        this->F = QVector<double>(F.begin(),F.end());
-        this->T = QVector<double>(T.begin(),T.end());
-        this->n = QVector<double>(n.begin(),n.end());
+        this->F = QVector<double>::fromStdVector(F);
+        this->T = QVector<double>::fromStdVector(T);
+        this->n = QVector<double>::fromStdVector(n);
 
         T_point.push_back(this->T[0]);
         T_point.push_back(this->T[this->T.size() - 1]);

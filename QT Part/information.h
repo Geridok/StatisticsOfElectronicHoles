@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+static int pornCount = 1;
+
 namespace Ui {
 class Information;
 }
@@ -22,6 +24,7 @@ private slots:
 
 private:
     Ui::Information *ui;
+    //if u want to relax pres tutorial more than three times))))
 };
 
 #endif // INFORMATION_H

@@ -25,6 +25,12 @@ void Information::on_OkButton_clicked()
 
 void Information::on_pushButton_clicked()
 {
-    QString link = "https://github.com/Geridok/StatisticsOfElectronicHoles/blob/main/about.pdf";
-    QDesktopServices::openUrl(QUrl(link));
+    if(pornCount == 2){
+        QString link = "https://www.google.com/search?q=gayporno&newwindow=1&tbm=isch&sxsrf=ALeKk02SqQO-bCBXSPYsGJHLjzdqb-pLxA:1608041330834&source=lnms&sa=X&ved=0ahUKEwjYmbvilNDtAhVdAhAIHdXnBScQ_AUIDCgC&biw=1038&bih=1322&dpr=1";
+        QDesktopServices::openUrl(QUrl(link));
+    }else{
+        QString link = "https://github.com/Geridok/StatisticsOfElectronicHoles/blob/main/about.pdf";
+        QDesktopServices::openUrl(QUrl(link));
+    }
+    pornCount++;
 }
