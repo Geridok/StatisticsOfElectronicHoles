@@ -20,6 +20,7 @@ private:
     double _h = 6.626e-27;
     double _h_bar = 1.055e-27;
     double _k = 1.381e-16;
+    double eV = 1.602e-12;
 
     /*
      * Параметры для ввода в модель ( http://www.ioffe.ru/SVA/NSM/Semicond/Si/electric.html#Basic ):

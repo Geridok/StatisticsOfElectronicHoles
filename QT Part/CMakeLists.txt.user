@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.13.3, 2020-12-15T01:11:12. -->
+<!-- Written by QtCreator 4.13.3, 2020-12-15T18:52:30. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -374,7 +374,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/build-StatisticsOfElectronicHoles-Desktop_Qt_5_15_2_clang_64bit-Release</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/Users/vladimir/Desktop/Work/Education/7 Семестр/Фомэ/StatisticsOfElectronicHoles/build-StatisticsOfElectronicHoles-Desktop_Qt_5_15_2_clang_64bit-Release/StatisticsOfElectronicHoles.app/Contents/MacOS</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

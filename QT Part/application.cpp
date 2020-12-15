@@ -46,11 +46,9 @@ Application::Application(QWidget *parent) :
 
     setSlidersLimit();
     setInitialValue();
-    E_g = 1.12 * 1.602e-12;
-    E_d = E_g - 0.054 * 1.602e-12;
+    E_g = 0.045 * 1.602e-12;
     N_d0 = 1.0e15;
     setInitialValue();
-    ui->E_dSlider->setValue((E_d/multiplier_E_d)*1000);
     ui->E_gSlider->setValue((E_g/multiplier_E_g) * 1000);
     ui->N_d0Slider->setValue(1600);
     reculculate();
@@ -58,7 +56,6 @@ Application::Application(QWidget *parent) :
 }
 
 void Application::setInitialValue(){
-    ui->E_dLineEdit->setText(QString::number(E_d));
     ui->E_gLineEdit->setText(QString::number(E_g));
     ui->N_d0LineEdit->setText(QString::number(N_d0));
     ui->T_0LineEdit->setText(QString::number(T_0));
@@ -67,9 +64,6 @@ void Application::setInitialValue(){
 }
 
 void Application::setSlidersLimit(){
-
-    ui->E_dSlider->setMinimum(1);
-    ui->E_dSlider->setMaximum(3000);
 
     ui->E_gSlider->setMinimum(1);
     ui->E_gSlider->setMaximum(3000);
@@ -92,11 +86,11 @@ void Application::updateGraph()
         ui->F_TWidget->graph(1)->setData(TP,E_gP);
         ui->F_TWidget->graph(2)->setData(TP,E_dP);
         if(ui->logScaleButton->isChecked()){
-            F.push_back(log(E_g));
-            F.push_back(log(E_d));
+            F.push_back(E_g/eV);
+            F.push_back(E_d/eV);
         }else{
-            F.push_back(E_g);
-            F.push_back(E_d);
+            F.push_back(E_g/eV);
+            F.push_back(E_d/eV);
         }
 
         ui->F_TWidget->xAxis->setRange(*std::min_element(T.begin(),T.end()),*std::max_element(T.begin(),T.end()));
@@ -123,7 +117,7 @@ void Application::reculculate()
 
     solver->setParameters(T_0,T_1, E_d,E_g,me_eff,N_d0);
     if(ui->logScaleButton->isChecked()){
-        auto F = solver->get_F_log();
+        auto F = solver->get_F();
         auto T = solver->get_T();
         auto n = solver->get_n_log();
         this->F = QVector<double>(F.begin(),F.end());
@@ -133,11 +127,11 @@ void Application::reculculate()
         T_point.push_back(this->T[0]);
         T_point.push_back(this->T[this->T.size() - 1]);
 
-        E_dPoint.push_back(log(E_d));
-        E_dPoint.push_back(log(E_d));
+        E_dPoint.push_back(E_d/eV);
+        E_dPoint.push_back(E_d/eV);
 
-        E_gPoint.push_back(log(E_g));
-        E_gPoint.push_back(log(E_g));
+        E_gPoint.push_back(E_g/eV);
+        E_gPoint.push_back(E_g/eV);
     }else{
         auto F = solver->get_F();
         auto T = solver->get_T();
@@ -149,11 +143,11 @@ void Application::reculculate()
         T_point.push_back(this->T[0]);
         T_point.push_back(this->T[this->T.size() - 1]);
 
-        E_dPoint.push_back((E_d));
-        E_dPoint.push_back((E_d));
+        E_dPoint.push_back((E_d)/eV);
+        E_dPoint.push_back((E_d)/eV);
 
-        E_gPoint.push_back((E_g));
-        E_gPoint.push_back((E_g));
+        E_gPoint.push_back((E_g)/eV);
+        E_gPoint.push_back((E_g)/eV);
     }
     TP = T_point;
     E_dP = E_dPoint;
@@ -170,22 +164,11 @@ void Application::on_E_gSlider_valueChanged(int value)
 {
     double cor = double(value)/1000.0;
     E_g = cor * multiplier_E_g;
-    ui->E_gLineEdit->setText(QString::number(E_g));
+    ui->E_gLineEdit->setText(QString::number(cor));
 
     reculculate();
     updateGraph();
 }
-
-void Application::on_E_dSlider_valueChanged(int value)
-{
-    double cor = double(value)/1000.0;
-    E_d = cor * multiplier_E_d;
-    ui->E_dLineEdit->setText(QString::number(E_d));
-
-    reculculate();
-    updateGraph();
-}
-
 
 void Application::on_N_d0Slider_valueChanged(int value)
 {
