@@ -26,7 +26,7 @@ public:
 
 private slots:
 
-    void on_E_gSlider_valueChanged(int value);
+    void on_E_dSlider_valueChanged(int value);
 
     void on_N_d0Slider_valueChanged(int value);
 
@@ -54,8 +54,8 @@ private:
     double multiplier_E_d = 1.602e-12;
     double multiplier_E_g = 1.602e-12;
     //Changeble values
-    double E_d = 1.7942e-12;
     double E_g = 0.045 * 1.602e-12;
+    double E_d = 1.7942e-12;
     double N_d0 = 1.0e15;
     double N_d0Pow = 1.0e16;
     int T_0 = 50.0f;

@@ -36,7 +36,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QSlider" name="E_gSlider">
+         <widget class="QSlider" name="E_dSlider">
           <property name="minimumSize">
            <size>
             <width>150</width>
@@ -60,7 +60,7 @@
            <string>Band gap</string>
           </property>
           <property name="text">
-           <string>E_g</string>
+           <string>E_d</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
