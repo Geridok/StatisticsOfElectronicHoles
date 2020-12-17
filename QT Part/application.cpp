@@ -46,18 +46,18 @@ Application::Application(QWidget *parent) :
 
     setSlidersLimit();
     setInitialValue();
-    E_d = 0.045 * 1.602e-12;
     E_g = 1.7942e-12;
+    E_d = E_g - 0.045 * eV;
     N_d0 = 1.0e15;
     setInitialValue();
-    ui->E_dSlider->setValue((E_d/multiplier_E_d) * 1000);
+    ui->E_dSlider->setValue((E_g - E_d)/eV);
     ui->N_d0Slider->setValue(1600);
     reculculate();
     updateGraph();
 }
 
 void Application::setInitialValue(){
-    ui->E_gLineEdit->setText(QString::number(E_d));
+    ui->E_gLineEdit->setText(QString::number((E_g - E_d)/eV));
     ui->N_d0LineEdit->setText(QString::number(N_d0));
     ui->T_0LineEdit->setText(QString::number(T_0));
     ui->T_1LineEdit->setText(QString::number(T_1));
@@ -67,7 +67,7 @@ void Application::setInitialValue(){
 void Application::setSlidersLimit(){
 
     ui->E_dSlider->setMinimum(1);
-    ui->E_dSlider->setMaximum(3000);
+    ui->E_dSlider->setMaximum(1500);
 
     ui->N_d0Slider->setMinimum(1500);
     ui->N_d0Slider->setMaximum(2500);
@@ -162,7 +162,7 @@ Application::~Application()
 void Application::on_E_dSlider_valueChanged(int value)
 {
     double cor = double(value)/1000.0;
-    E_d = cor * multiplier_E_g;
+    E_d = E_g - cor*eV;
     ui->E_gLineEdit->setText(QString::number(cor));
 
     reculculate();
